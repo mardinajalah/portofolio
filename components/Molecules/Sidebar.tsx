@@ -8,6 +8,8 @@ import { useTheme } from 'next-themes';
 
 const Sidebar = () => {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
   const isDark = theme === 'dark';
 
   const dataNavigation = [
@@ -19,7 +21,6 @@ const Sidebar = () => {
     { name: 'Contact', href: '#' },
   ];
 
-  const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
