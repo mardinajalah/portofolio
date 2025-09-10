@@ -8,6 +8,16 @@ import { useTheme } from 'next-themes';
 
 const Sidebar = () => {
   const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  const dataNavigation = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Project', href: '#' },
+    { name: 'Certificate', href: '#' },
+    { name: 'Github', href: '#' },
+    { name: 'Contact', href: '#' },
+  ];
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -30,7 +40,7 @@ const Sidebar = () => {
   return (
     <div
       className={`w-[250px] h-full p-6 flex flex-col gap-3 items-center transition-colors
-        ${theme === 'light' ? 'shadow shadow-gray-300' : 'shadow shadow-gray-700'}
+        ${isDark ? 'shadow shadow-gray-700' : 'shadow shadow-gray-300'}
       `}
     >
       {/* Profile */}
@@ -63,42 +73,15 @@ const Sidebar = () => {
 
       {/* Navigation */}
       <div className='w-full flex flex-col gap-2 mt-5'>
-        <Link
-          href='/'
-          className={`p-2 rounded-xl transition-colors ${theme === 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-        >
-          Home
-        </Link>
-        <Link
-          href='/about'
-          className={`p-2 rounded-xl transition-colors ${theme === 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-        >
-          About
-        </Link>
-        <Link
-          href='#'
-          className={`p-2 rounded-xl transition-colors ${theme === 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-        >
-          Project
-        </Link>
-        <Link
-          href='#'
-          className={`p-2 rounded-xl transition-colors ${theme === 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-        >
-          Certificate
-        </Link>
-        <Link
-          href='#'
-          className={`p-2 rounded-xl transition-colors ${theme === 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-        >
-          Github
-        </Link>
-        <Link
-          href='#'
-          className={`p-2 rounded-xl transition-colors ${theme === 'light' ? 'hover:bg-gray-300' : 'hover:bg-gray-800'}`}
-        >
-          Contact
-        </Link>
+        {dataNavigation.map((nav, index) => (
+          <Link
+            key={index}
+            href={nav.href}
+            className={`p-2 font-semibold rounded-xl transition-colors ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-300'}`}
+          >
+            {nav.name}
+          </Link>
+        ))}
       </div>
     </div>
   );

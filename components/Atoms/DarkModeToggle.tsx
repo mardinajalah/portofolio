@@ -9,8 +9,8 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`relative flex items-center w-24 h-10 rounded-full transition-colors duration-500 overflow-hidden ${
-        isDark ? "bg-gray-800 pl-4" : "bg-gray-300 pl-12"
+      className={`relative flex items-center w-24 h-10 rounded-full transition-colors duration-500 overflow-hidden border shadow-md ${
+        isDark ? "bg-gray-800/20 border-gray-700/40 pl-4" : "bg-white/20 border-white/30 pl-12"
       }`}
     >
       <div

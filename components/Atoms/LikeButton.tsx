@@ -11,8 +11,12 @@ const LikeButton = () => {
   return (
     <button
       onClick={() => setLiked(!liked)}
-      className={`relative flex items-center w-24 h-10 rounded-full transition-colors duration-500 overflow-hidden ${
-        liked ? "bg-red-500 pl-2" : `${isDark ? 'bg-gray-800' : 'bg-gray-300'} pl-12`
+      className={`relative flex items-center w-24 h-10 rounded-full transition-colors duration-500 overflow-hidden border shadow-md ${
+        liked
+          ? "bg-red-500/70 border-red-600/40 pl-2"
+          : isDark
+          ? "bg-gray-800/20 border-gray-700/40 pl-11"
+          : "bg-white/20 border-white/30 pl-11"
       }`}
     >
       {/* Ikon bulat */}
@@ -30,7 +34,7 @@ const LikeButton = () => {
       {/* Label */}
       <span
         className={`text-xs font-bold transition-colors duration-500 ${
-          liked ? "text-white" : `${isDark ? 'text-white' : 'text-gray-700'}`
+          liked ? "text-white" : isDark ? "text-white" : "text-gray-700"
         }`}
       >
         {liked ? "Liked 21" : "Like 20"}
