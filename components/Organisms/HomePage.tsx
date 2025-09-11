@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { CodeXml, Settings } from 'lucide-react';
+import { CodeXml, Wrench } from 'lucide-react';
 import { faHtml5, faCss3Alt, faJs, faReact, faNodeJs, faNpm, faGitAlt, faGithub, faDocker, faBootstrap } from '@fortawesome/free-brands-svg-icons';
 import { IconSkillsLeft, IconSkillsRight } from '../Atoms/IconSkills';
 import Ability from '../Atoms/Ability';
@@ -118,7 +118,7 @@ const HomePage = () => {
       {/* skils */}
       <div className='mt-10'>
         <div className='flex items-center gap-2 justify-start'>
-          <Settings size={25} />
+          <Wrench size={25} />
           <h1 className='text-2xl font-bold capitalize'>ability</h1>
         </div>
 
