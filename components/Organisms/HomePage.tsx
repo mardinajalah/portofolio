@@ -7,6 +7,7 @@ import { IconSkillsLeft, IconSkillsRight } from '../Atoms/IconSkills';
 import Ability from '../Atoms/Ability';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { SkeletonHomePage } from '../Molecules/Skeleton';
 
 const HomePage = () => {
   const dataSkillsLeft = [
@@ -42,18 +43,7 @@ const HomePage = () => {
 
   if (!mounted) {
     return (
-      <div>
-        <div className='w-full h-[200px] rounded-2xl animate-pulse' />
-        <div className='h-6 bg-gray-300 rounded-full w-1/3 mt-6 animate-pulse' />
-        <div className='h-4 bg-gray-300 rounded-full w-full mt-2 animate-pulse' />
-        <div className='h-4 bg-gray-300 rounded-full w-full mt-2 animate-pulse' />
-        <div className='h-4 bg-gray-300 rounded-full w-full mt-2 animate-pulse' />
-        <div className='h-4 bg-gray-300 rounded-full w-full mt-2 animate-pulse' />
-        <div className='h-6 bg-gray-300 rounded-full w-1/3 mt-10 animate-pulse' />
-        <div className='h-32 bg-gray-300 rounded-xl w-full mt-6 animate-pulse' />
-        <div className='h-6 bg-gray-300 rounded-full w-1/3 mt-10 animate-pulse' />
-        <div className='h-32 bg-gray-300 rounded-xl w-full mt-6 animate-pulse' />
-      </div>
+      <SkeletonHomePage />
     );
   }
 
