@@ -25,7 +25,7 @@ const Ability = ({ target, title }: AbilityProps) => {
         {/* Background bar */}
         <div
           className={`mt-2 w-full h-4 rounded-full overflow-hidden ${
-            isDark ? "bg-gray-700/50" : "bg-gray-200/50"
+            isDark ? "bg-gray-700/50" : "bg-gray-300"
           }`}
         >
           {/* Progress bar */}
