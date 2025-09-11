@@ -26,7 +26,7 @@ const DarkModeToggle = () => {
       </div>
 
       <span
-        className={`text-xs font-bold transition-colors duration-500 ${
+        className={`text-xs font-bold transition-colors ${
           isDark ? "text-white" : "text-gray-700"
         }`}
       >
