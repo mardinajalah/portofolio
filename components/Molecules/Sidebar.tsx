@@ -63,15 +63,24 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
         {isOpenSidebar ? <PanelRightClose size={20} /> : <PanelRightOpen size={20} />}
       </div>
 
+      {/* Overlay (hanya muncul di mobile/tablet ketika sidebar terbuka) */}
+      {isOpenSidebar && (
+        <div
+          className='fixed inset-0 bg-black/50 z-30 md:hidden'
+          onClick={() => setIsOpenSidebar(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <div
         className={`
-        fixed top-0 left-0 h-full w-[250px] p-4 flex flex-col gap-3 items-center
-        transition-all duration-300 z-40 shadow
-        ${isDark ? `bg-gray-900 text-white ${isOpenSidebar ? 'shadow-gray-700' : ''}`  : 'bg-white text-black'} bg-opacity-100
-        md:bg-[var(--bg)] md:text-[var(--text)]
-        ${isOpenSidebar ? 'translate-x-0' : '-translate-x-full'}
-      `}
+          fixed top-0 left-0 h-full w-[250px] p-4 flex flex-col gap-3 items-center
+          transition-all duration-300 z-40 shadow
+          ${isDark ? `bg-gray-900 text-white ${isOpenSidebar ? 'shadow-gray-700' : ''}` : 'bg-white text-black'}
+          bg-opacity-100
+          md:bg-[var(--bg)] md:text-[var(--text)]
+          ${isOpenSidebar ? 'translate-x-0' : '-translate-x-full'}
+        `}
       >
         {/* Profile */}
         <div className='rounded-full overflow-hidden flex justify-center w-[100px] h-[100px] mt-2'>
@@ -110,8 +119,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
                 key={index}
                 href={nav.href}
                 className={`p-2 font-semibold rounded-xl transition-colors flex gap-2 justify-start items-center
-                  ${isActive ? (isDark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black') : isDark ? 'hover:bg-gray-800 text-gray-200' : 'hover:bg-gray-300 text-gray-700'}
-                `}
+              ${isActive ? (isDark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black') : isDark ? 'hover:bg-gray-800 text-gray-200' : 'hover:bg-gray-300 text-gray-700'}
+            `}
               >
                 {nav.icon}
                 {nav.name}
