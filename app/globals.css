@@ -6,8 +6,8 @@
 }
 
 .dark {
-  --bg: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  --text: #e2e8f0;
+  --bg: 'black';
+  --text: 'white';
 }
 
 .light {
