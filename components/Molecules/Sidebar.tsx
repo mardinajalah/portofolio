@@ -27,14 +27,12 @@ const Sidebar = () => {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return (
-      <SkeletonSidebar />
-    );
+    return <SkeletonSidebar />;
   }
 
   return (
     <div
-      className={`w-[250px] h-full p-6 flex flex-col gap-3 items-center transition-colors
+      className={`w-[220px] sm:w-[250px] h-full p-4 sm:p-6 flex flex-col gap-3 items-center transition-colors
         ${isDark ? 'shadow shadow-gray-700' : 'shadow shadow-gray-300'}
       `}
     >

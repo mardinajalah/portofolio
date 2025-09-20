@@ -37,7 +37,7 @@ export default function RootLayout({
         >
           <div className='flex h-screen w-full overflow-hidden flex-row'>
             <Sidebar />
-            <div className='py-6 px-10 w-full overflow-y-auto overflow-x-hidden'>{children}</div>
+            <div className='flex-1 py-6 px-4 md:px-10 w-full overflow-y-auto overflow-x-hidden'>{children}</div>
           </div>
         </ThemeProvider>
       </body>

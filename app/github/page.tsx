@@ -36,14 +36,16 @@ const Github = () => {
         `}
       >
         {/* Kalender GitHub */}
-        <GitHubCalendar
-          username='mardinajalah'
-          blockSize={16.5}
-          blockMargin={5}
-          fontSize={14}
-          colorScheme={isDark ? 'dark' : 'light'}
-          year={selectedYear}
-        />
+        <div className="w-full overflow-x-auto flex justify-center">
+          <GitHubCalendar
+            username='mardinajalah'
+            blockSize={16.5} // lebih kecil di mobile
+            blockMargin={4}
+            fontSize={12}
+            colorScheme={isDark ? 'dark' : 'light'}
+            year={selectedYear}
+          />
+        </div>
 
         {/* Tombol tahun dinamis */}
         <div className='flex flex-wrap gap-3 justify-center'>
@@ -51,7 +53,7 @@ const Github = () => {
             <button
               key={year}
               onClick={() => setSelectedYear(year)}
-              className={`px-4 py-2 rounded-lg transition cursor-pointer ${selectedYear === year ? 'bg-blue-600 text-white' : `bg-gray-300 ${isDark && "bg-gray-800 text-gray-200"} hover:bg-blue-500 hover:text-white`}`}
+              className={`px-4 py-2 rounded-lg transition cursor-pointer ${selectedYear === year ? 'bg-blue-600 text-white' : `bg-gray-300 ${isDark && 'bg-gray-800 text-gray-200'} hover:bg-blue-500 hover:text-white`}`}
             >
               {year}
             </button>
