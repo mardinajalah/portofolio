@@ -2,16 +2,16 @@
 
 :root {
   --bg: #181717;
-  --text: #fff;
+  --text: #eaeaea;
 }
 
 .dark {
   --bg: #181717;
-  --text: #fff;
+  --text: #eaeaea;
 }
 
 .light {
-  --bg: #fff;
+  --bg: #eaeaea;
   --text: #181717;
 }
 
