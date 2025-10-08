@@ -30,7 +30,7 @@ const Github = () => {
         `}
       >
         {/* Kalender GitHub */}
-        <div className="w-full overflow-x-auto flex justify-center">
+        <div className="w-full overflow-x-auto flex justify-center px-2">
           <GitHubCalendar
             username='mardinajalah'
             blockSize={16.5} // lebih kecil di mobile

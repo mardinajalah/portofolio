@@ -11,8 +11,8 @@
 }
 
 .light {
-  --bg: linear-gradient(135deg, #e8f0fa 0%, #f3e8ff 100%);
-  --text: #111111;
+  --bg: 'white';
+  --text: #000;
 }
 
 body {
