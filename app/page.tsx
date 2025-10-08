@@ -63,7 +63,7 @@ const HomePage = () => {
         <div className='mt-6 md:mt-0 w-[180px] md:w-[250px]'>
           <Image
             alt='header'
-            src='/header.png'
+            src='/profile/header.png'
             width={250}
             height={250}
           />

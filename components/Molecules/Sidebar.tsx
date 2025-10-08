@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
         <div className='rounded-full overflow-hidden flex justify-center w-[100px] h-[100px] mt-2'>
           <Image
             alt='profile'
-            src='/profile.png'
+            src='/profile/profile.png'
             width={200}
             height={200}
             priority
@@ -97,7 +97,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
           <h1 className='text-2xl font-bold text-center'>Mardin</h1>
           <Image
             alt='centang biru'
-            src='/bluecheck.png'
+            src='/icon/bluecheck.png'
             height={20}
             width={20}
           />

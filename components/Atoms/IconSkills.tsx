@@ -48,7 +48,7 @@ export const IconSkillsRight = ({ title, icon }: IconSkillsProps) => {
       <div className="w-[25px] h-[25px] overflow-hidden">
         <Image
           alt={icon}
-          src={`/${icon}.png`}
+          src={`/icon/${icon}.png`}
           width={100}
           height={100}
         />
