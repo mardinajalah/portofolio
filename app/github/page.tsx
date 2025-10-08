@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import GitHubCalendar from 'react-github-calendar';
 import { useTheme } from 'next-themes';
+import { SkeletonGithubPage } from '@/components/Molecules/Skeleton';
 
 const Github = () => {
   const { theme } = useTheme();
@@ -17,14 +18,7 @@ const Github = () => {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) {
-    return (
-      <div className='flex flex-col justify-center items-center'>
-        <div className='h-6 bg-gray-300 rounded-full w-1/3 mt-10 animate-pulse mb-5' />
-        <div className='w-full h-[250px] bg-gray-300 rounded-2xl animate-pulse' />
-      </div>
-    );
-  }
+  if (!mounted) return <SkeletonGithubPage />;
 
   return (
     <>
