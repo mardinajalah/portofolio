@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --bg: linear-gradient(135deg, #dbeafe 0%, #f3e8ff 100%);
-  --text: #111111;
+  --bg: #181717;
+  --text: #fff;
 }
 
 .dark {
-  --bg: 'black';
-  --text: 'white';
+  --bg: #181717;
+  --text: #fff;
 }
 
 .light {
-  --bg: 'white';
-  --text: #000;
+  --bg: #fff;
+  --text: #181717;
 }
 
 body {

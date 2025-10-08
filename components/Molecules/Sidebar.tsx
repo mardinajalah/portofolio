@@ -1,8 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import DarkModeToggle from '../Atoms/DarkModeToggle';
-import LikeButton from '../Atoms/LikeButton';
+import { DarkModeToggle, LikeToggle } from '../Atoms/ButtonToggle';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
@@ -107,7 +106,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
         {/* Controls */}
         <div className='flex items-center gap-2 w-full justify-between capitalize border-b border-gray-300 dark:border-gray-700/40 pb-4'>
           <DarkModeToggle />
-          <LikeButton />
+          <LikeToggle />
         </div>
 
         {/* Navigation */}
