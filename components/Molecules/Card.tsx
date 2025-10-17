@@ -3,16 +3,18 @@ import Image from 'next/image';
 import { useState, useRef } from 'react';
 import { X, ChevronRight, ChevronLeft } from 'lucide-react';
 
-export const CardProject = () => {
+interface CardProjectProps {
+  images: string[];
+  title: string;
+  techStack: string;
+  description: string;
+}
+
+export const CardProject: React.FC<CardProjectProps> = ({images, title, techStack, description}) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [seeImage, setSeeImage] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images: string[] = [];
-
-  for (let i = 1; i <= 22; i++) {
-    images.push(`/assets/image-projects/toko-kasir/kasir${i}.png`);
-  }
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -38,8 +40,8 @@ export const CardProject = () => {
         {/* Image */}
         <div className='w-full cursor-pointer'>
           <Image
-            src='/assets/image-projects/toko-kasir/kasir2.png'
-            alt='dashboard web kasir'
+            src={images[1]}
+            alt='project image'
             width={400}
             height={400}
             priority
@@ -57,13 +59,13 @@ export const CardProject = () => {
           }`}
         >
           <h1 className='font-semibold text-xl mb-1 cursor-pointer'>
-            Dashboard Web Kasir
+            {title}
           </h1>
           <p className='text-sm text-gray-400'>
-            React TS, Tailwind CSS, Express JS, MySQL
+            {techStack}
           </p>
           <p className='text-sm text-gray-500 mt-1'>
-            Web aplikasi kasir untuk usaha kecil dan menengah.
+            {description}
           </p>
 
           {/* Buttons */}
