@@ -30,7 +30,7 @@ export default function RootLayout({
         <title>Portofolio</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='light' enableSystem>
+        <ThemeProvider attribute='class' defaultTheme='dark' enableSystem>
           <div className="flex h-screen w-full overflow-hidden flex-row relative">
             {/* Sidebar */}
             <Sidebar isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar} />
