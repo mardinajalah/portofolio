@@ -56,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
     <>
       {/* Tombol toggle pojok kiri atas */}
       <div
-        className='fixed top-4 left-4 z-50 cursor-pointer bg-[var(--bg)] text-[var(--text)] p-2 rounded-lg shadow'
+        className='fixed top-4 left-4 z-50 cursor-pointer bg-(--bg) text-(--text) p-2 rounded-lg shadow'
         onClick={() => setIsOpenSidebar((prev) => !prev)}
       >
         {isOpenSidebar ? <PanelRightClose size={20} /> : <PanelRightOpen size={20} />}
@@ -73,16 +73,16 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
       {/* Sidebar */}
       <div
         className={`
-          fixed top-0 left-0 h-full w-[250px] p-4 flex flex-col gap-3 items-center
+          fixed top-0 left-0 h-full w-62.5 p-4 flex flex-col gap-3 items-center
           transition-all duration-300 z-40 shadow
           ${isDark ? `bg-gray-900 text-white ${isOpenSidebar ? 'shadow-gray-700' : ''}` : 'bg-white text-black'}
           bg-opacity-100
-          md:bg-[var(--bg)] md:text-[var(--text)]
+          md:bg-(--bg) md:text-(--text)
           ${isOpenSidebar ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
         {/* Profile */}
-        <div className='rounded-full overflow-hidden flex justify-center w-[100px] h-[100px] mt-2'>
+        <div className='rounded-full overflow-hidden flex justify-center w-25 h-25 mt-2'>
           <Image
             alt='profile'
             src='/profile/profile.png'

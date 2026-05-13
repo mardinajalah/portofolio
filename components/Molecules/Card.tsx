@@ -36,7 +36,7 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
 
   return (
     <>
-      <div className='w-full sm:w-[350px] overflow-hidden rounded-lg shadow-md'>
+      <div className='w-full sm:w-87.5 overflow-hidden rounded-lg shadow-md'>
         {/* Image */}
         <div className='w-full cursor-pointer'>
           <Image

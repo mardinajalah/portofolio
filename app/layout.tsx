@@ -38,7 +38,7 @@ export default function RootLayout({
             {/* Konten utama geser jika sidebar terbuka */}
             <div
               className={`flex-1 py-6 px-4 md:px-10 w-full overflow-y-auto overflow-x-hidden transition-all duration-300
-              ${isOpenSidebar ? 'md:ml-[250px]' : 'ml-0'}`}
+              ${isOpenSidebar ? 'md:ml-62.5' : 'ml-0'}`}
             >
               {children}
             </div>
