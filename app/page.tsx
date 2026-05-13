@@ -50,7 +50,7 @@ const HomePage = () => {
       {/* Header */}
       <div
         className={`
-          w-full min-h-[200px] p-6 rounded-2xl flex flex-col md:flex-row items-center md:items-center justify-between
+          w-full min-h-50 p-6 rounded-2xl flex flex-col md:flex-row items-center md:items-center justify-between
           ${isDark ? 'bg-gray-800/20 border-gray-700/40' : 'bg-white/20 border-white/30'}
           backdrop-blur-xl border shadow-lg overflow-hidden
         `}
@@ -60,7 +60,7 @@ const HomePage = () => {
           <p className='capitalize drop-shadow-sm'>I am a fullstack web developer</p>
           <button className='font-semibold mt-4 px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all shadow-md cursor-pointer hover:scale-105 duration-300'>Download CV</button>
         </div>
-        <div className='mt-6 md:mt-0 w-[180px] md:w-[250px]'>
+        <div className='mt-6 md:mt-0 w-45 md:w-62.5'>
           <Image
             alt='header'
             src='/profile/header.png'
