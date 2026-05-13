@@ -31,6 +31,27 @@ export const SkeletonHomePage = () => {
   );
 };
 
+export const SkeletonAboutPage = () => {
+  return (
+    <div>
+      <div className='w-full h-60 bg-gray-300 rounded-2xl animate-pulse mb-8' />
+      <div className='grid grid-cols-1 md:grid-cols-4 gap-4 mb-10'>
+        {[...Array(4)].map((_, index) => (
+          <div
+            key={index}
+            className='h-24 bg-gray-300 rounded-xl animate-pulse'
+          />
+        ))}
+      </div>
+      <div className='h-6 bg-gray-300 rounded-full w-1/3 animate-pulse' />
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-5'>
+        <div className='h-56 bg-gray-300 rounded-xl animate-pulse' />
+        <div className='h-56 bg-gray-300 rounded-xl animate-pulse' />
+      </div>
+    </div>
+  );
+};
+
 export const SkeletonGithubPage = () => {
   return (
     <div className='flex flex-col justify-center items-center'>
