@@ -26,8 +26,8 @@ const Project = () => {
   return (
     <div className='w-full flex flex-wrap items-center sm:justify-center lg:justify-start gap-10'>
       {/* Card Project */}
-      <CardProject images={imageKasir} title='Dashboard Web Kasir' techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma' description='Web aplikasi kasir untuk usaha kecil dan menengah.' />
-      <CardProject images={imageSimpanPinjam} title='Dashboard Simpan Pinjam' techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma' description='Web aplikasi simpan pinjam dan memiliki aplikasi mobilenya juga untuk usaha kecil dan menengah' />
+      <CardProject handleOpenCode={() => window.open('https://github.com/mardinajalah/commit_frontend', '_blank')} images={imageKasir} title='Dashboard Web Kasir' techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma' description='Web aplikasi kasir untuk usaha kecil dan menengah.' />
+      <CardProject handleOpenCode={() => window.open('https://github.com/mardinajalah/commit_frontend', '_blank')} images={imageSimpanPinjam} title='Dashboard Simpan Pinjam' techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma' description='Web aplikasi simpan pinjam dan memiliki aplikasi mobilenya juga untuk usaha kecil dan menengah' />
     </div>
   );
 };

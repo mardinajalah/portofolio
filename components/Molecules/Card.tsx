@@ -8,9 +8,10 @@ interface CardProjectProps {
   title: string;
   techStack: string;
   description: string;
+  handleOpenCode?: () => void;
 }
 
-export const CardProject: React.FC<CardProjectProps> = ({ images, title, techStack, description }) => {
+export const CardProject: React.FC<CardProjectProps> = ({ images, title, techStack, description, handleOpenCode }) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [seeImage, setSeeImage] = useState(false);
@@ -59,7 +60,7 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
           {/* Buttons */}
           <div className='flex flex-wrap gap-2 mt-3'>
             <button className='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer'>Demo</button>
-            <button className={`px-4 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer ${isDark ? 'bg-gray-700 text-white hover:bg-gray-800' : 'bg-gray-500 text-white hover:bg-gray-600'}`}>Code</button>
+            <button onClick={handleOpenCode} className={`px-4 py-2 rounded-lg hover:bg-gray-600 transition cursor-pointer ${isDark ? 'bg-gray-700 text-white hover:bg-gray-800' : 'bg-gray-500 text-white hover:bg-gray-600'}`}>Code</button>
           </div>
         </div>
       </div>
