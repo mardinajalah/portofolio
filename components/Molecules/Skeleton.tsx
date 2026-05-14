@@ -81,20 +81,31 @@ export const SkeletonGithubPage = () => {
 
 export const SkeletonProjectPage = () => {
   return (
-    <div className='w-full flex flex-col items-start gap-10'>
-      <div className='w-100 overflow-hidden rounded-lg animate-pulse'>
-        <div className='h-50 bg-gray-300 w-full' />
-        <div className='p-2 bg-gray-300/20 border border-gray-300/40'>
-          <div className='h-6 bg-gray-300 rounded-full w-1/2 mt-2' />
-          <div className='h-4 bg-gray-300 rounded-full w-full mt-2' />
-          <div className='h-4 bg-gray-300 rounded-full w-full mt-2' />
-          <div className='h-4 bg-gray-300 rounded-full w-full mt-2' />
-          <div className='flex gap-2 mt-4'>
-            <div className='h-8 bg-gray-300 rounded-lg w-20' />
-            <div className='h-8 bg-gray-300 rounded-lg w-20' />
+    <div className='w-full'>
+      <div className='mb-8'>
+        <div className='h-8 bg-gray-300 rounded-full w-40 animate-pulse' />
+        <div className='h-4 bg-gray-300 rounded-full w-full max-w-md mt-3 animate-pulse' />
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
+        {[...Array(2)].map((_, index) => (
+          <div
+            key={index}
+            className='overflow-hidden rounded-xl border border-gray-300/40 animate-pulse'
+          >
+            <div className='aspect-[16/10] bg-gray-300 w-full' />
+            <div className='p-4 bg-gray-300/20'>
+              <div className='h-6 bg-gray-300 rounded-full w-2/3' />
+              <div className='h-4 bg-gray-300 rounded-full w-full mt-4' />
+              <div className='h-4 bg-gray-300 rounded-full w-5/6 mt-2' />
+              <div className='flex gap-2 mt-5'>
+                <div className='h-9 bg-gray-300 rounded-lg w-24' />
+                <div className='h-9 bg-gray-300 rounded-lg w-24' />
+              </div>
+            </div>
           </div>
+        ))}
         </div>
       </div>
-    </div>
   );
 }
