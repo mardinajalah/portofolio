@@ -52,6 +52,25 @@ export const SkeletonAboutPage = () => {
   );
 };
 
+export const SkeletonContactPage = () => {
+  return (
+    <div>
+      <div className='w-full h-55 bg-gray-300 rounded-2xl animate-pulse mb-8' />
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
+        <div className='space-y-4'>
+          {[...Array(4)].map((_, index) => (
+            <div
+              key={index}
+              className='h-24 bg-gray-300 rounded-xl animate-pulse'
+            />
+          ))}
+        </div>
+        <div className='lg:col-span-2 h-115 bg-gray-300 rounded-xl animate-pulse' />
+      </div>
+    </div>
+  );
+};
+
 export const SkeletonGithubPage = () => {
   return (
     <div className='flex flex-col justify-center items-center'>
