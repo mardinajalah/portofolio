@@ -109,3 +109,30 @@ export const SkeletonProjectPage = () => {
       </div>
   );
 }
+
+export const SkeletonCertificatePage = () => {
+  return (
+    <div className='w-full'>
+      <div className='mb-8'>
+        <div className='h-8 bg-gray-300 rounded-full w-48 animate-pulse' />
+        <div className='h-4 bg-gray-300 rounded-full w-full max-w-md mt-3 animate-pulse' />
+      </div>
+
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
+        {[...Array(4)].map((_, index) => (
+          <div
+            key={index}
+            className='overflow-hidden rounded-xl border border-gray-300/40 animate-pulse'
+          >
+            <div className='aspect-[4/3] bg-gray-300 w-full' />
+            <div className='p-4 bg-gray-300/20'>
+              <div className='h-6 bg-gray-300 rounded-full w-3/4' />
+              <div className='h-4 bg-gray-300 rounded-full w-full mt-3' />
+              <div className='h-4 bg-gray-300 rounded-full w-5/6 mt-2' />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
