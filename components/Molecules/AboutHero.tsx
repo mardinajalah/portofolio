@@ -18,7 +18,7 @@ const AboutHero = ({ isDark }: AboutHeroProps) => {
       <div className='w-full md:w-3/5 text-center md:text-left'>
         <p className='font-semibold text-blue-500 capitalize mb-2'>Fullstack Web Developer</p>
         <h1 className='text-2xl md:text-3xl font-bold capitalize drop-shadow-md'>About Me</h1>
-        <p className='mt-4 text-sm md:text-base leading-7 text-gray-500 dark:text-gray-300'>
+        <p className='mt-4 text-sm md:text-base leading-7'>
           Hi, I am Mardin. I build responsive web applications with a focus on clean interfaces, practical backend logic, and consistent user experience.
         </p>
       </div>

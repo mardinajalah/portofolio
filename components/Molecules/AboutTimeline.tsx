@@ -27,7 +27,7 @@ const AboutTimeline = ({ isDark, items }: AboutTimelineProps) => {
             <span className='absolute left-0 top-1.5 w-3 h-3 rounded-full bg-blue-500' />
             {index !== items.length - 1 && <span className='absolute left-1.25 top-6 w-0.5 h-full bg-gray-300 dark:bg-gray-700' />}
             <h3 className='font-semibold'>{item.title}</h3>
-            <p className='mt-1 text-sm leading-6 text-gray-500 dark:text-gray-400'>{item.description}</p>
+            <p className='mt-1 text-sm leading-6'>{item.description}</p>
           </div>
         ))}
       </div>

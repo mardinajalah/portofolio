@@ -87,10 +87,10 @@ const About = () => {
               ${isDark ? 'bg-gray-800/20 border-gray-700/40' : 'bg-white/20 border-white/30'}
             `}
           >
-            <p className='text-sm md:text-base leading-7 text-justify text-gray-500 dark:text-gray-300'>
+            <p className='text-sm md:text-base leading-7 text-justify'>
               I enjoy turning ideas into useful web applications. My work usually starts from understanding the interface, shaping a clean user flow, and then connecting it with backend logic that keeps the application reliable.
             </p>
-            <p className='mt-4 text-sm md:text-base leading-7 text-justify text-gray-500 dark:text-gray-300'>
+            <p className='mt-4 text-sm md:text-base leading-7 text-justify'>
               This portfolio is a place to document my learning journey, projects, and the technologies I use while growing as a fullstack web developer.
             </p>
           </div>
@@ -140,7 +140,7 @@ const About = () => {
             ${isDark ? 'bg-gray-800/20 border-gray-700/40' : 'bg-white/20 border-white/30'}
           `}
         >
-          <p className='text-sm md:text-base leading-7 text-gray-500 dark:text-gray-300'>
+          <p className='text-sm md:text-base leading-7'>
             I focus on modern portfolio sites, internal dashboards, CRUD applications, and fullstack web systems that combine clear interfaces with maintainable application logic.
           </p>
         </div>
