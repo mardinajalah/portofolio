@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import AppShell from '@/components/Molecules/AppShell';
 import { routing } from '@/i18n/routing';
+import { getMessages } from 'next-intl/server';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,8 @@ export default async function RootLayout({
     notFound();
   }
 
+  const message = await getMessages();
+
   return (
     <html
       lang={locale}
@@ -41,7 +44,7 @@ export default async function RootLayout({
         <title>Portofolio</title>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider>
+        <NextIntlClientProvider messages={message}>
           <AppShell>{children}</AppShell>
         </NextIntlClientProvider>
       </body>
