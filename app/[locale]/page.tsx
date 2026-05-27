@@ -3,13 +3,16 @@
 import Image from 'next/image';
 import { CodeXml, Wrench } from 'lucide-react';
 import { faHtml5, faCss3Alt, faJs, faReact, faNodeJs, faNpm, faGitAlt, faGithub, faDocker, faBootstrap } from '@fortawesome/free-brands-svg-icons';
-import { IconSkillsLeft, IconSkillsRight } from '../components/Atoms/IconSkills';
+import { IconSkillsLeft, IconSkillsRight } from '../../components/Atoms/IconSkills';
 import Ability from '@/components/Atoms/Ability';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { SkeletonHomePage } from '@/components/Molecules/Skeleton';
+import { useTranslations } from 'next-intl';
 
 const HomePage = () => {
+  const t = useTranslations('HomePage');
+
   const dataSkillsLeft = [
     { title: 'HTML', icon: faHtml5, style: 'text-orange-500' },
     { title: 'CSS', icon: faCss3Alt, style: 'text-blue-500' },
@@ -56,8 +59,8 @@ const HomePage = () => {
         `}
       >
         <div className='text-center md:text-left w-full md:w-1/2'>
-          <h1 className='text-2xl md:text-3xl font-bold capitalize drop-shadow-md'>Hi, I am Mardin</h1>
-          <p className='capitalize drop-shadow-sm'>I am a fullstack web developer</p>
+          <h1 className='text-2xl md:text-3xl font-bold capitalize drop-shadow-md'>{t('name')}</h1>
+          <p className='capitalize drop-shadow-sm'>{t('about')}</p>
           <button className='font-semibold mt-4 px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all shadow-md cursor-pointer hover:scale-105 duration-300'>Download CV</button>
         </div>
         <div className='mt-6 md:mt-0 w-45 md:w-62.5'>
