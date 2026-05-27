@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Clock, Github, Linkedin, Mail, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
+import { Clock, Github, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
 import ContactForm from '@/components/Molecules/ContactForm';
@@ -22,27 +24,33 @@ const Contact = () => {
 
   const contactItems = [
     {
-      label: t('contactItems.email'),
-      value: 'mardin@example.com',
-      icon: Mail,
-      href: 'mailto:mardin@example.com',
+      label: t('contactItems.facebook'),
+      value: 'facebook.com/mardinajalah',
+      icon: <FontAwesomeIcon icon={faFacebook} className='text-xl' />,
+      href: 'https://www.facebook.com/',
+    },
+    {
+      label: t('contactItems.whatsapp'),
+      value: 'WhatsApp',
+      icon: <FontAwesomeIcon icon={faWhatsapp} className='text-xl' />,
+      href: 'https://wa.me/',
+    },
+    {
+      label: t('contactItems.telegram'),
+      value: 'Telegram',
+      icon: <FontAwesomeIcon icon={faTelegram} className='text-xl' />,
+      href: 'https://t.me/',
     },
     {
       label: t('contactItems.github'),
       value: 'github.com/mardinajalah',
-      icon: Github,
+      icon: <Github size={20} />,
       href: 'https://github.com/mardinajalah',
-    },
-    {
-      label: t('contactItems.linkedin'),
-      value: 'linkedin.com/in/mardin',
-      icon: Linkedin,
-      href: 'https://www.linkedin.com/in/mardin',
     },
     {
       label: t('contactItems.location'),
       value: t('contactItems.locationValue'),
-      icon: MapPin,
+      icon: <MapPin size={20} />,
     },
   ];
 
@@ -65,7 +73,7 @@ const Contact = () => {
       <section className='mt-10 grid grid-cols-1 lg:grid-cols-3 gap-6'>
         <div>
           <div className='flex items-center gap-2 justify-start'>
-            <Mail size={25} />
+            <MessageSquareText size={25} />
             <h1 className='text-2xl font-bold capitalize'>{t('contactInfo')}</h1>
           </div>
 

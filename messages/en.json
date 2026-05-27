@@ -135,9 +135,10 @@
     "sendMessageTitle": "Send Message",
     "availability": "Availability",
     "contactItems": {
-      "email": "Email",
+      "facebook": "Facebook",
+      "whatsapp": "WhatsApp",
+      "telegram": "Telegram",
       "github": "GitHub",
-      "linkedin": "LinkedIn",
       "location": "Location",
       "locationValue": "Indonesia"
     },
