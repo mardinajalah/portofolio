@@ -2,9 +2,8 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { DarkModeToggle, LikeToggle } from '../Atoms/ButtonToggle';
-import Link from 'next/link';
+import { Link, usePathname } from '@/i18n/navigation';
 import { useTheme } from 'next-themes';
-import { usePathname } from 'next/navigation';
 import { SkeletonSidebar } from './Skeleton';
 import { House, User, MonitorCog, Dock, Github, CardSim, PanelRightClose, PanelRightOpen } from 'lucide-react';
 
