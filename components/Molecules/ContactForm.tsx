@@ -2,12 +2,14 @@
 
 import { FormEvent, useState } from 'react';
 import { Send } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface ContactFormProps {
   isDark: boolean;
 }
 
 const ContactForm = ({ isDark }: ContactFormProps) => {
+  const t = useTranslations('ContactPage.form');
   const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -34,13 +36,13 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
             htmlFor='name'
             className='text-sm font-semibold'
           >
-            Name
+            {t('name')}
           </label>
           <input
             id='name'
             name='name'
             type='text'
-            placeholder='Your name'
+            placeholder={t('namePlaceholder')}
             className={`${inputClassName} mt-2`}
           />
         </div>
@@ -50,13 +52,13 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
             htmlFor='email'
             className='text-sm font-semibold'
           >
-            Email
+            {t('email')}
           </label>
           <input
             id='email'
             name='email'
             type='email'
-            placeholder='your@email.com'
+            placeholder={t('emailPlaceholder')}
             className={`${inputClassName} mt-2`}
           />
         </div>
@@ -67,13 +69,13 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
           htmlFor='subject'
           className='text-sm font-semibold'
         >
-          Subject
+          {t('subject')}
         </label>
         <input
           id='subject'
           name='subject'
           type='text'
-          placeholder='Project discussion'
+          placeholder={t('subjectPlaceholder')}
           className={`${inputClassName} mt-2`}
         />
       </div>
@@ -83,13 +85,13 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
           htmlFor='message'
           className='text-sm font-semibold'
         >
-          Message
+          {t('message')}
         </label>
         <textarea
           id='message'
           name='message'
           rows={6}
-          placeholder='Tell me about your idea'
+          placeholder={t('messagePlaceholder')}
           className={`${inputClassName} mt-2 resize-none`}
         />
       </div>
@@ -100,9 +102,9 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
           className='w-full sm:w-auto inline-flex items-center justify-center gap-2 font-semibold px-4 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-all shadow-md cursor-pointer'
         >
           <Send size={18} />
-          Send Message
+          {t('send')}
         </button>
-        {isSent && <p className='text-sm text-blue-500'>Message preview submitted. Backend integration can be added next.</p>}
+        {isSent && <p className='text-sm text-blue-500'>{t('success')}</p>}
       </div>
     </form>
   );

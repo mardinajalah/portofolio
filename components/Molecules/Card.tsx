@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Code2, ExternalLink, Images } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import ProjectImageModal from '@/components/Molecules/ProjectImageModal';
 
 interface CardProjectProps {
@@ -15,6 +16,7 @@ interface CardProjectProps {
 }
 
 export const CardProject: React.FC<CardProjectProps> = ({ images, title, techStack, description, handleOpenCode }) => {
+  const t = useTranslations('Common');
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [seeImage, setSeeImage] = useState(false);
@@ -36,9 +38,9 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
       >
         <button
           type='button'
-          aria-label={`Open ${title} screenshots`}
+          aria-label={t('openScreenshots', { title })}
           onClick={handleOpenImage}
-          className='group relative w-full aspect-16/10 overflow-hidden cursor-pointer bg-gray-300/20'
+          className='group relative w-full aspect-[16/10] overflow-hidden cursor-pointer bg-gray-300/20'
         >
           <Image
             src={coverImage}
@@ -51,7 +53,7 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
           <div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors' />
           <div className='absolute left-3 top-3 inline-flex items-center gap-2 rounded-full bg-black/60 text-white px-3 py-1 text-xs font-semibold'>
             <Images size={14} />
-            {images.length} Screenshots
+            {images.length} {t('screenshots')}
           </div>
         </button>
 
@@ -66,7 +68,7 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
               className='inline-flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer'
             >
               <ExternalLink size={16} />
-              Demo
+              {t('demo')}
             </button>
             <button
               type='button'
@@ -74,7 +76,7 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
               className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition cursor-pointer ${isDark ? 'bg-gray-700 text-white hover:bg-gray-800' : 'bg-gray-500 text-white hover:bg-gray-600'}`}
             >
               <Code2 size={16} />
-              Code
+              {t('code')}
             </button>
           </div>
         </div>

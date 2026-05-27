@@ -3,59 +3,54 @@
 import { useEffect, useState } from 'react';
 import { Clock, Github, Linkedin, Mail, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useTranslations } from 'next-intl';
 import ContactForm from '@/components/Molecules/ContactForm';
 import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
 import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
 
-const contactItems = [
-  {
-    label: 'Email',
-    value: 'mardin@example.com',
-    icon: Mail,
-    href: 'mailto:mardin@example.com',
-  },
-  {
-    label: 'GitHub',
-    value: 'github.com/mardinajalah',
-    icon: Github,
-    href: 'https://github.com/mardinajalah',
-  },
-  {
-    label: 'LinkedIn',
-    value: 'linkedin.com/in/mardin',
-    icon: Linkedin,
-    href: 'https://www.linkedin.com/in/mardin',
-  },
-  {
-    label: 'Location',
-    value: 'Indonesia',
-    icon: MapPin,
-  },
-];
-
-const availabilityItems = [
-  {
-    title: 'Collaboration',
-    description: 'Open for portfolio, dashboard, and fullstack web project discussions.',
-    icon: Sparkles,
-  },
-  {
-    title: 'Project Talk',
-    description: 'Ready to discuss UI flow, frontend implementation, and backend structure.',
-    icon: MessageSquareText,
-  },
-  {
-    title: 'Response',
-    description: 'I usually review messages and follow up as soon as possible.',
-    icon: Clock,
-  },
-];
+interface AvailabilityCopy {
+  title: string;
+  description: string;
+}
 
 const Contact = () => {
+  const t = useTranslations('ContactPage');
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [mounted, setMounted] = useState(false);
+
+  const contactItems = [
+    {
+      label: t('contactItems.email'),
+      value: 'mardin@example.com',
+      icon: Mail,
+      href: 'mailto:mardin@example.com',
+    },
+    {
+      label: t('contactItems.github'),
+      value: 'github.com/mardinajalah',
+      icon: Github,
+      href: 'https://github.com/mardinajalah',
+    },
+    {
+      label: t('contactItems.linkedin'),
+      value: 'linkedin.com/in/mardin',
+      icon: Linkedin,
+      href: 'https://www.linkedin.com/in/mardin',
+    },
+    {
+      label: t('contactItems.location'),
+      value: t('contactItems.locationValue'),
+      icon: MapPin,
+    },
+  ];
+
+  const availabilityIcons = [Sparkles, MessageSquareText, Clock];
+  const availabilityItems = (t.raw('availabilityItems') as AvailabilityCopy[]).map((item, index) => ({
+    ...item,
+    icon: availabilityIcons[index],
+  }));
 
   useEffect(() => setMounted(true), []);
 
@@ -71,7 +66,7 @@ const Contact = () => {
         <div>
           <div className='flex items-center gap-2 justify-start'>
             <Mail size={25} />
-            <h1 className='text-2xl font-bold capitalize'>Contact Info</h1>
+            <h1 className='text-2xl font-bold capitalize'>{t('contactInfo')}</h1>
           </div>
 
           <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4'>
@@ -91,7 +86,7 @@ const Contact = () => {
         <div className='lg:col-span-2'>
           <div className='flex items-center gap-2 justify-start'>
             <MessageSquareText size={25} />
-            <h1 className='text-2xl font-bold capitalize'>Send Message</h1>
+            <h1 className='text-2xl font-bold capitalize'>{t('sendMessageTitle')}</h1>
           </div>
 
           <div className='mt-5'>
@@ -103,7 +98,7 @@ const Contact = () => {
       <section className='mt-10 border-t-2 border-gray-300 dark:border-gray-700/40 pt-8'>
         <div className='flex items-center gap-2 justify-start'>
           <Sparkles size={25} />
-          <h1 className='text-2xl font-bold capitalize'>Availability</h1>
+          <h1 className='text-2xl font-bold capitalize'>{t('availability')}</h1>
         </div>
 
         <div className='mt-5 grid grid-cols-1 md:grid-cols-3 gap-4'>

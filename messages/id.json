@@ -1,6 +1,171 @@
 {
+  "Common": {
+    "downloadCv": "Unduh CV",
+    "demo": "Demo",
+    "code": "Kode",
+    "screenshots": "Screenshot",
+    "changeLanguage": "Ganti bahasa",
+    "openScreenshots": "Buka screenshot {title}",
+    "closePreview": "Tutup pratinjau gambar",
+    "previousImage": "Gambar sebelumnya",
+    "nextImage": "Gambar berikutnya",
+    "openScreenshot": "Buka screenshot {title} {index}"
+  },
+  "Sidebar": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "project": "Proyek",
+    "certificate": "Sertifikat",
+    "github": "GitHub",
+    "contact": "Kontak"
+  },
   "HomePage": {
     "name": "Hai, saya Mardin",
-    "about": "Saya adalah seaorang fullstack web developer"
+    "about": "Saya adalah seorang fullstack web developer",
+    "downloadCv": "Unduh CV",
+    "intro": "Halo, nama saya Mardin, seorang Fullstack Web Developer yang tertarik membangun aplikasi web modern, responsif, dan skalabel. Saya memiliki pengalaman langsung menggunakan teknologi seperti React, Next.js, Node.js, TypeScript, Tailwind CSS, dan Docker untuk deployment. Dalam perjalanan saya, saya mengembangkan fitur frontend interaktif sekaligus mengelola layanan backend dan database menggunakan Express.js dan MySQL. Selain itu, saya memahami dasar UI/UX design dengan tools seperti Figma, sehingga saya bisa menghubungkan solusi teknis dengan pengalaman pengguna yang baik. Saat ini saya sedang menempuh studi Teknologi Informasi sambil aktif membangun project pribadi dan project tim. Portofolio ini menjadi tempat untuk mendokumentasikan perjalanan, skill, dan project yang sudah saya buat. Dengan semangat belajar dan berkembang, saya selalu terbuka untuk tantangan baru di dunia teknologi.",
+    "skills": "Keahlian",
+    "ability": "Kemampuan",
+    "uiUxDesign": "Desain UI/UX",
+    "frontendDevelopment": "Frontend Development",
+    "backendDevelopment": "Backend Development"
+  },
+  "AboutPage": {
+    "hero": {
+      "eyebrow": "Fullstack Web Developer",
+      "title": "Tentang Saya",
+      "description": "Hai, saya Mardin. Saya membangun aplikasi web responsif dengan fokus pada tampilan yang bersih, logika backend yang praktis, dan pengalaman pengguna yang konsisten."
+    },
+    "quickFacts": [
+      {
+        "label": "Peran",
+        "value": "Fullstack Developer"
+      },
+      {
+        "label": "Fokus",
+        "value": "React, Next.js, Node.js"
+      },
+      {
+        "label": "Lokasi",
+        "value": "Indonesia"
+      },
+      {
+        "label": "Status",
+        "value": "Terbuka untuk Kolaborasi"
+      }
+    ],
+    "storyTitle": "Cerita Saya",
+    "storyParagraphOne": "Saya senang mengubah ide menjadi aplikasi web yang berguna. Biasanya pekerjaan saya dimulai dari memahami tampilan, membentuk alur pengguna yang jelas, lalu menghubungkannya dengan logika backend agar aplikasi tetap andal.",
+    "storyParagraphTwo": "Portofolio ini menjadi tempat untuk mendokumentasikan perjalanan belajar, project, dan teknologi yang saya gunakan selama berkembang sebagai fullstack web developer.",
+    "timeline": [
+      {
+        "title": "Mempelajari dasar",
+        "description": "Memulai dari teknologi inti web dan membangun fondasi dengan HTML, CSS, JavaScript, Git, serta pola layout responsif."
+      },
+      {
+        "title": "Membangun project nyata",
+        "description": "Mengeksplorasi alur kerja frontend dan backend melalui halaman portofolio, dashboard, autentikasi, dan aplikasi berbasis database."
+      },
+      {
+        "title": "Berkembang sebagai fullstack developer",
+        "description": "Saat ini terus meningkatkan kemampuan dengan React, Next.js, TypeScript, Node.js, MySQL, Tailwind CSS, dan alur deployment untuk project siap produksi."
+      }
+    ],
+    "mainFocus": "Fokus Utama",
+    "frontendDevelopment": "Frontend Development",
+    "backendDevelopment": "Backend Development",
+    "uiUxDesign": "Desain UI/UX",
+    "deployment": "Deployment",
+    "whatIBuild": "Yang Saya Bangun",
+    "whatIBuildDescription": "Saya fokus pada website portofolio modern, dashboard internal, aplikasi CRUD, dan sistem web fullstack yang menggabungkan tampilan jelas dengan logika aplikasi yang mudah dikelola."
+  },
+  "ProjectPage": {
+    "title": "Proyek",
+    "subtitle": "Kumpulan aplikasi web dan dashboard yang pernah saya bangun.",
+    "items": [
+      {
+        "title": "Dashboard Web Kasir",
+        "description": "Aplikasi web kasir untuk usaha kecil dan menengah."
+      },
+      {
+        "title": "Dashboard Simpan Pinjam",
+        "description": "Aplikasi web simpan pinjam yang juga memiliki aplikasi mobile pendamping untuk usaha kecil dan menengah."
+      }
+    ]
+  },
+  "CertificatePage": {
+    "title": "Sertifikat",
+    "subtitle": "Kumpulan sertifikat yang sudah saya dapatkan.",
+    "openLabel": "Buka sertifikat {title}",
+    "imageAlt": "Sertifikat {title}",
+    "items": [
+      {
+        "title": "Sertifikat TOEP",
+        "description": "Sertifikat Test of English Proficiency (TOEP)."
+      },
+      {
+        "title": "Sertifikat BTQ",
+        "description": "Sertifikat kelulusan Baca Tulis Al-Quran (BTQ)."
+      },
+      {
+        "title": "Sertifikat FA",
+        "description": "Sertifikat pencapaian FA."
+      },
+      {
+        "title": "Sertifikat OSPEKTREN 2022",
+        "description": "Sertifikat kepesertaan OSPEKTREN pada tahun 2022."
+      }
+    ]
+  },
+  "GithubPage": {
+    "title": "Analitik GitHub",
+    "subtitle": "Kontribusi open source dan aktivitas saya di GitHub.",
+    "overviewStats": "Statistik Ringkas",
+    "contributionStreak": "Streak Kontribusi",
+    "topLanguages": "Bahasa Teratas",
+    "contributionCalendar": "Kalender Kontribusi"
+  },
+  "ContactPage": {
+    "hero": {
+      "eyebrow": "Mari terhubung",
+      "title": "Hubungi Saya",
+      "description": "Punya ide project, rencana kolaborasi, atau pertanyaan tentang karya saya? Kirim pesan dan saya akan membalasnya."
+    },
+    "contactInfo": "Informasi Kontak",
+    "sendMessageTitle": "Kirim Pesan",
+    "availability": "Ketersediaan",
+    "contactItems": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "location": "Lokasi",
+      "locationValue": "Indonesia"
+    },
+    "availabilityItems": [
+      {
+        "title": "Kolaborasi",
+        "description": "Terbuka untuk diskusi project portofolio, dashboard, dan aplikasi web fullstack."
+      },
+      {
+        "title": "Diskusi Project",
+        "description": "Siap berdiskusi tentang alur UI, implementasi frontend, dan struktur backend."
+      },
+      {
+        "title": "Respons",
+        "description": "Saya biasanya meninjau pesan dan membalas secepat mungkin."
+      }
+    ],
+    "form": {
+      "name": "Nama",
+      "namePlaceholder": "Nama Anda",
+      "email": "Email",
+      "emailPlaceholder": "email@anda.com",
+      "subject": "Subjek",
+      "subjectPlaceholder": "Diskusi project",
+      "message": "Pesan",
+      "messagePlaceholder": "Ceritakan ide Anda",
+      "send": "Kirim Pesan",
+      "success": "Pratinjau pesan terkirim. Integrasi backend bisa ditambahkan berikutnya."
+    }
   }
 }

@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-import { DarkModeToggle, LikeToggle } from '../Atoms/ButtonToggle';
+import { DarkModeToggle, LanguageToggle } from '../Atoms/ButtonToggle';
 import { Link, usePathname } from '@/i18n/navigation';
 import { useTheme } from 'next-themes';
+import { useTranslations } from 'next-intl';
 import { SkeletonSidebar } from './Skeleton';
 import { House, User, MonitorCog, Dock, Github, CardSim, PanelRightClose, PanelRightOpen } from 'lucide-react';
 
@@ -16,15 +17,16 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations('Sidebar');
   const isDark = theme === 'dark';
 
   const dataNavigation = [
-    { name: 'Home', href: '/', icon: <House size={20} /> },
-    { name: 'About', href: '/about', icon: <User size={20} /> },
-    { name: 'Project', href: '/project', icon: <MonitorCog size={20} /> },
-    { name: 'Certificate', href: '/certificate', icon: <Dock size={20} /> },
-    { name: 'Github', href: '/github', icon: <Github size={20} /> },
-    { name: 'Contact', href: '/contact', icon: <CardSim size={20} /> },
+    { name: t('home'), href: '/', icon: <House size={20} /> },
+    { name: t('about'), href: '/about', icon: <User size={20} /> },
+    { name: t('project'), href: '/project', icon: <MonitorCog size={20} /> },
+    { name: t('certificate'), href: '/certificate', icon: <Dock size={20} /> },
+    { name: t('github'), href: '/github', icon: <Github size={20} /> },
+    { name: t('contact'), href: '/contact', icon: <CardSim size={20} /> },
   ];
 
   useEffect(() => {
@@ -105,7 +107,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
         {/* Controls */}
         <div className='flex items-center gap-2 w-full justify-between capitalize border-b border-gray-300 dark:border-gray-700/40 pb-4'>
           <DarkModeToggle />
-          <LikeToggle />
+          <LanguageToggle />
         </div>
 
         {/* Navigation */}
