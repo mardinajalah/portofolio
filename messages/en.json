@@ -1,6 +1,171 @@
 {
+  "Common": {
+    "downloadCv": "Download CV",
+    "demo": "Demo",
+    "code": "Code",
+    "screenshots": "Screenshots",
+    "changeLanguage": "Change language",
+    "openScreenshots": "Open {title} screenshots",
+    "closePreview": "Close image preview",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "openScreenshot": "Open {title} screenshot {index}"
+  },
+  "Sidebar": {
+    "home": "Home",
+    "about": "About",
+    "project": "Project",
+    "certificate": "Certificate",
+    "github": "GitHub",
+    "contact": "Contact"
+  },
   "HomePage": {
     "name": "Hi, I am Mardin",
-    "about": "I am a fullstack web developer"
+    "about": "I am a fullstack web developer",
+    "downloadCv": "Download CV",
+    "intro": "Hello, my name is Mardin, a Fullstack Web Developer passionate about building modern, responsive, and scalable web applications. I have hands-on experience working with technologies such as React, Next.js, Node.js, TypeScript, Tailwind CSS, and Docker for deployment. Throughout my journey, I have developed interactive frontend features while also managing backend services and databases using Express.js and MySQL. In addition, I have a strong understanding of UI/UX design with tools like Figma, allowing me to bridge technical solutions with great user experiences. Currently, I am pursuing my studies in Information Technology while actively building personal and team-based projects. This portfolio serves as a place to document my journey, skills, and projects I have created. With a strong passion for continuous learning and growth, I am always open to new challenges in the tech industry.",
+    "skills": "Skills",
+    "ability": "Ability",
+    "uiUxDesign": "UI/UX Design",
+    "frontendDevelopment": "Frontend Development",
+    "backendDevelopment": "Backend Development"
+  },
+  "AboutPage": {
+    "hero": {
+      "eyebrow": "Fullstack Web Developer",
+      "title": "About Me",
+      "description": "Hi, I am Mardin. I build responsive web applications with a focus on clean interfaces, practical backend logic, and consistent user experience."
+    },
+    "quickFacts": [
+      {
+        "label": "Role",
+        "value": "Fullstack Developer"
+      },
+      {
+        "label": "Focus",
+        "value": "React, Next.js, Node.js"
+      },
+      {
+        "label": "Location",
+        "value": "Indonesia"
+      },
+      {
+        "label": "Status",
+        "value": "Open to Collaborate"
+      }
+    ],
+    "storyTitle": "My Story",
+    "storyParagraphOne": "I enjoy turning ideas into useful web applications. My work usually starts from understanding the interface, shaping a clean user flow, and then connecting it with backend logic that keeps the application reliable.",
+    "storyParagraphTwo": "This portfolio is a place to document my learning journey, projects, and the technologies I use while growing as a fullstack web developer.",
+    "timeline": [
+      {
+        "title": "Learning the foundation",
+        "description": "Started from core web technologies and built a strong base with HTML, CSS, JavaScript, Git, and responsive layout patterns."
+      },
+      {
+        "title": "Building real projects",
+        "description": "Explored frontend and backend workflows by creating portfolio pages, dashboard interfaces, authentication flows, and database-driven applications."
+      },
+      {
+        "title": "Growing as a fullstack developer",
+        "description": "Currently improving with React, Next.js, TypeScript, Node.js, MySQL, Tailwind CSS, and deployment workflows for production-ready projects."
+      }
+    ],
+    "mainFocus": "Main Focus",
+    "frontendDevelopment": "Frontend Development",
+    "backendDevelopment": "Backend Development",
+    "uiUxDesign": "UI/UX Design",
+    "deployment": "Deployment",
+    "whatIBuild": "What I Build",
+    "whatIBuildDescription": "I focus on modern portfolio sites, internal dashboards, CRUD applications, and fullstack web systems that combine clear interfaces with maintainable application logic."
+  },
+  "ProjectPage": {
+    "title": "Projects",
+    "subtitle": "A collection of web applications and dashboard projects I have built.",
+    "items": [
+      {
+        "title": "Cashier Web Dashboard",
+        "description": "A cashier web application for small and medium businesses."
+      },
+      {
+        "title": "Savings and Loan Dashboard",
+        "description": "A savings and loan web application with a companion mobile app for small and medium businesses."
+      }
+    ]
+  },
+  "CertificatePage": {
+    "title": "Certificates",
+    "subtitle": "A collection of certificates I have earned.",
+    "openLabel": "Open certificate {title}",
+    "imageAlt": "Certificate {title}",
+    "items": [
+      {
+        "title": "TOEP Certificate",
+        "description": "Test of English Proficiency (TOEP) certificate."
+      },
+      {
+        "title": "BTQ Certificate",
+        "description": "Graduation certificate for Quran reading and writing."
+      },
+      {
+        "title": "FA Certificate",
+        "description": "FA achievement certificate."
+      },
+      {
+        "title": "OSPEKTREN 2022 Certificate",
+        "description": "Participant certificate for OSPEKTREN in 2022."
+      }
+    ]
+  },
+  "GithubPage": {
+    "title": "GitHub Analytics",
+    "subtitle": "My open source contributions and activity on GitHub.",
+    "overviewStats": "Overview Stats",
+    "contributionStreak": "Contribution Streak",
+    "topLanguages": "Top Languages",
+    "contributionCalendar": "Contribution Calendar"
+  },
+  "ContactPage": {
+    "hero": {
+      "eyebrow": "Let us connect",
+      "title": "Contact Me",
+      "description": "Have a project idea, collaboration plan, or question about my work? Send a message and I will get back to you."
+    },
+    "contactInfo": "Contact Info",
+    "sendMessageTitle": "Send Message",
+    "availability": "Availability",
+    "contactItems": {
+      "email": "Email",
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "location": "Location",
+      "locationValue": "Indonesia"
+    },
+    "availabilityItems": [
+      {
+        "title": "Collaboration",
+        "description": "Open for portfolio, dashboard, and fullstack web project discussions."
+      },
+      {
+        "title": "Project Talk",
+        "description": "Ready to discuss UI flow, frontend implementation, and backend structure."
+      },
+      {
+        "title": "Response",
+        "description": "I usually review messages and follow up as soon as possible."
+      }
+    ],
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "Project discussion",
+      "message": "Message",
+      "messagePlaceholder": "Tell me about your idea",
+      "send": "Send Message",
+      "success": "Message preview submitted. Backend integration can be added next."
+    }
   }
 }

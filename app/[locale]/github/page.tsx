@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import GitHubCalendar from 'react-github-calendar';
 import { useTheme } from 'next-themes';
+import { useTranslations } from 'next-intl';
 import { SkeletonGithubPage } from '@/components/Molecules/Skeleton';
 import GithubStats from '@/components/Molecules/GithubStats';
 
 const Github = () => {
+  const t = useTranslations('GithubPage');
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
@@ -24,28 +26,25 @@ const Github = () => {
   return (
     <div className='w-full'>
       <div className='mb-8'>
-        <h1 className='text-2xl md:text-3xl font-bold capitalize'>GitHub Analytics</h1>
-        <p className='mt-2 text-sm md:text-base'>My open source contributions and activity on GitHub.</p>
+        <h1 className='text-2xl md:text-3xl font-bold capitalize'>{t('title')}</h1>
+        <p className='mt-2 text-sm md:text-base'>{t('subtitle')}</p>
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8'>
-        {/* GitHub Stats */}
-        <GithubStats 
-          title="Overview Stats"
-          isDark={isDark} 
-          src={`https://github-readme-stats.vercel.app/api?username=mardinajalah&show_icons=true&theme=${themeQuery}&hide_border=true&bg_color=00000000`} 
+        <GithubStats
+          title={t('overviewStats')}
+          isDark={isDark}
+          src={`https://github-readme-stats.vercel.app/api?username=mardinajalah&show_icons=true&theme=${themeQuery}&hide_border=true&bg_color=00000000`}
         />
 
-        {/* Streak Stats */}
         <GithubStats
-          title="Contribution Streak"
+          title={t('contributionStreak')}
           isDark={isDark}
           src={`https://github-readme-streak-stats.herokuapp.com/?user=mardinajalah&theme=${themeQuery}&hide_border=true&background=00000000`}
         />
 
-        {/* Top Languages */}
         <GithubStats
-          title="Top Languages"
+          title={t('topLanguages')}
           isDark={isDark}
           src={`https://github-readme-stats.vercel.app/api/top-langs/?username=mardinajalah&layout=compact&theme=${themeQuery}&hide_border=true&bg_color=00000000`}
         />
@@ -61,7 +60,7 @@ const Github = () => {
       >
         <div className='w-full flex flex-col items-center gap-4'>
           <h2 className={`text-lg font-semibold w-full text-center md:text-left md:px-4 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
-            Contribution Calendar
+            {t('contributionCalendar')}
           </h2>
           <div className='w-full overflow-x-auto flex justify-center px-2 py-4'>
             <GitHubCalendar
@@ -74,7 +73,6 @@ const Github = () => {
             />
           </div>
 
-          {/* Tombol tahun */}
           <div className='flex flex-wrap gap-3 justify-center mt-2'>
             {years.map((year) => (
               <button

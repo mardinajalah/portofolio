@@ -1,12 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface AboutHeroProps {
   isDark: boolean;
 }
 
 const AboutHero = ({ isDark }: AboutHeroProps) => {
+  const t = useTranslations('AboutPage.hero');
+
   return (
     <section
       className={`
@@ -16,11 +19,9 @@ const AboutHero = ({ isDark }: AboutHeroProps) => {
       `}
     >
       <div className='w-full md:w-3/5 text-center md:text-left'>
-        <p className='font-semibold text-blue-500 capitalize mb-2'>Fullstack Web Developer</p>
-        <h1 className='text-2xl md:text-3xl font-bold capitalize drop-shadow-md'>About Me</h1>
-        <p className='mt-4 text-sm md:text-base leading-7'>
-          Hi, I am Mardin. I build responsive web applications with a focus on clean interfaces, practical backend logic, and consistent user experience.
-        </p>
+        <p className='font-semibold text-blue-500 capitalize mb-2'>{t('eyebrow')}</p>
+        <h1 className='text-2xl md:text-3xl font-bold capitalize drop-shadow-md'>{t('title')}</h1>
+        <p className='mt-4 text-sm md:text-base leading-7'>{t('description')}</p>
       </div>
 
       <div className='w-35 h-35 md:w-45 md:h-45 rounded-full overflow-hidden border border-white/30 shadow-md bg-white/10 flex items-center justify-center'>

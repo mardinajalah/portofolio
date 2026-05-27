@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { CodeXml, Wrench } from 'lucide-react';
-import { faHtml5, faCss3Alt, faJs, faReact, faNodeJs, faNpm, faGitAlt, faGithub, faDocker, faBootstrap } from '@fortawesome/free-brands-svg-icons';
-import { IconSkillsLeft, IconSkillsRight } from '../../components/Atoms/IconSkills';
+import { faBootstrap, faCss3Alt, faDocker, faGitAlt, faGithub, faHtml5, faJs, faNodeJs, faNpm, faReact } from '@fortawesome/free-brands-svg-icons';
+import { IconSkillsLeft, IconSkillsRight } from '@/components/Atoms/IconSkills';
 import Ability from '@/components/Atoms/Ability';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -32,7 +32,7 @@ const HomePage = () => {
     { title: 'Next', icon: 'next' },
     { title: 'Xampp', icon: 'xampp' },
     { title: 'Vercel', icon: 'vercel' },
-    { title: 'Typescripy', icon: 'typescript' },
+    { title: 'Typescript', icon: 'typescript' },
     { title: 'Mysql', icon: 'mysql' },
     { title: 'Vite', icon: 'vite' },
     { title: 'Figma', icon: 'figma' },
@@ -50,7 +50,6 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Header */}
       <div
         className={`
           w-full min-h-50 p-6 rounded-2xl flex flex-col md:flex-row items-center md:items-center justify-between
@@ -61,7 +60,7 @@ const HomePage = () => {
         <div className='text-center md:text-left w-full md:w-1/2'>
           <h1 className='text-2xl md:text-3xl font-bold capitalize drop-shadow-md'>{t('name')}</h1>
           <p className='capitalize drop-shadow-sm'>{t('about')}</p>
-          <button className='font-semibold mt-4 px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all shadow-md cursor-pointer hover:scale-105 duration-300'>Download CV</button>
+          <button className='font-semibold mt-4 px-4 py-2 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition-all shadow-md cursor-pointer hover:scale-105 duration-300'>{t('downloadCv')}</button>
         </div>
         <div className='mt-6 md:mt-0 w-45 md:w-62.5'>
           <Image
@@ -73,26 +72,15 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* text */}
-      <p className='mt-6 text-justify border-b-2 border-gray-300 dark:border-gray-700/40 pb-6'>
-        Hello, my name is <span className='font-semibold'>Mardin</span>, a <span className='font-semibold'>Fullstack Web Developer</span> passionate about building modern, responsive, and scalable web applications. I have hands-on
-        experience working with technologies such as <span className='font-semibold'>React, Next.js, Node.js, TypeScript, Tailwind CSS</span>, and <span className='font-semibold'>Docker</span> for deployment. Throughout my journey, I’ve
-        developed interactive frontend features while also managing backend services and databases using <span className='font-semibold'>Express.js and MySQL</span>. In addition, I have a strong understanding of{' '}
-        <span className='font-semibold'>UI/UX design</span> with tools like Figma, allowing me to bridge technical solutions with great user experiences. Currently, I am pursuing my studies in{' '}
-        <span className='font-semibold'>Information Technology</span> while actively building personal and team-based projects. This portfolio serves as a place to document my journey, skills, and projects I’ve created. With a strong
-        passion for continuous learning and growth, I am always open to new challenges in the tech industry.
-      </p>
+      <p className='mt-6 text-justify border-b-2 border-gray-300 dark:border-gray-700/40 pb-6'>{t('intro')}</p>
 
-      {/* skills */}
       <div className='mt-10 border-b-2 border-gray-300 dark:border-gray-700/40 pb-6'>
         <div className='flex items-center gap-2 justify-start'>
           <CodeXml size={25} />
-          <h1 className='text-2xl font-bold capitalize'>Skills</h1>
+          <h1 className='text-2xl font-bold capitalize'>{t('skills')}</h1>
         </div>
 
-        {/* Icon dengan efek glassmorphism berjalan */}
         <div className='relative w-full overflow-hidden mt-6 p-2 flex flex-col gap-4'>
-          {/* Left → berjalan kanan ke kiri */}
           <div className='animate-marquee flex gap-4'>
             {[...dataSkillsLeft, ...dataSkillsLeft].map((skill, index) => (
               <IconSkillsLeft
@@ -104,7 +92,6 @@ const HomePage = () => {
             ))}
           </div>
 
-          {/* Right → berjalan kiri ke kanan */}
           <div className='animate-marquee-reverse flex gap-4'>
             {[...dataSkillsRight, ...dataSkillsRight].map((skill, index) => (
               <IconSkillsRight
@@ -117,24 +104,23 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* skils */}
       <div className='mt-10'>
         <div className='flex items-center gap-2 justify-start'>
           <Wrench size={25} />
-          <h1 className='text-2xl font-bold capitalize'>ability</h1>
+          <h1 className='text-2xl font-bold capitalize'>{t('ability')}</h1>
         </div>
 
         <div className='mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
           <Ability
-            title='UI/UX Design'
+            title={t('uiUxDesign')}
             target='50%'
           />
           <Ability
-            title='Frontend Development'
+            title={t('frontendDevelopment')}
             target='90%'
           />
           <Ability
-            title='Backend Development'
+            title={t('backendDevelopment')}
             target='80%'
           />
         </div>

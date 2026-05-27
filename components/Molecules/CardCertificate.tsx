@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useState } from 'react';
 import { Maximize2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import ProjectImageModal from '@/components/Molecules/ProjectImageModal';
 
 interface CardCertificateProps {
@@ -13,6 +14,7 @@ interface CardCertificateProps {
 }
 
 export const CardCertificate: React.FC<CardCertificateProps> = ({ imageUrl, title, description }) => {
+  const t = useTranslations('CertificatePage');
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const [seeImage, setSeeImage] = useState(false);
@@ -33,13 +35,13 @@ export const CardCertificate: React.FC<CardCertificateProps> = ({ imageUrl, titl
       >
         <button
           type='button'
-          aria-label={`Buka sertifikat ${title}`}
+          aria-label={t('openLabel', { title })}
           onClick={handleOpenImage}
           className='group relative w-full aspect-[4/3] overflow-hidden cursor-pointer bg-gray-300/20'
         >
           <Image
             src={imageUrl}
-            alt={`Sertifikat ${title}`}
+            alt={t('imageAlt', { title })}
             width={800}
             height={600}
             priority

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 interface ProjectImageModalProps {
   currentIndex: number;
@@ -13,6 +14,7 @@ interface ProjectImageModalProps {
 }
 
 const ProjectImageModal = ({ currentIndex, images, onClose, setCurrentIndex, title }: ProjectImageModalProps) => {
+  const t = useTranslations('Common');
   const hasMultipleImages = images.length > 1;
 
   const handlePrev = () => {
@@ -66,7 +68,7 @@ const ProjectImageModal = ({ currentIndex, images, onClose, setCurrentIndex, tit
 
           <button
             type='button'
-            aria-label='Close image preview'
+            aria-label={t('closePreview')}
             onClick={onClose}
             className='w-9 h-9 rounded-full flex items-center justify-center text-white bg-white/10 hover:bg-white/20 transition cursor-pointer'
           >
@@ -88,7 +90,7 @@ const ProjectImageModal = ({ currentIndex, images, onClose, setCurrentIndex, tit
             <>
               <button
                 type='button'
-                aria-label='Previous image'
+                aria-label={t('previousImage')}
                 onClick={handlePrev}
                 className='absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white bg-black/50 hover:bg-black/70 transition cursor-pointer'
               >
@@ -97,7 +99,7 @@ const ProjectImageModal = ({ currentIndex, images, onClose, setCurrentIndex, tit
 
               <button
                 type='button'
-                aria-label='Next image'
+                aria-label={t('nextImage')}
                 onClick={handleNext}
                 className='absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center text-white bg-black/50 hover:bg-black/70 transition cursor-pointer'
               >
@@ -114,7 +116,7 @@ const ProjectImageModal = ({ currentIndex, images, onClose, setCurrentIndex, tit
                 <button
                   key={image}
                   type='button'
-                  aria-label={`Open ${title} screenshot ${index + 1}`}
+                  aria-label={t('openScreenshot', { title, index: index + 1 })}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-20 h-14 rounded-lg overflow-hidden border-2 transition cursor-pointer ${index === currentIndex ? 'border-blue-500' : 'border-white/10 opacity-70 hover:opacity-100'}`}
                 >

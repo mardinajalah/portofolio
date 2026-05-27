@@ -1,13 +1,21 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { SkeletonProjectPage } from '@/components/Molecules/Skeleton';
 import { CardProject } from '@/components/Molecules/Card';
 
+interface ProjectCopy {
+  title: string;
+  description: string;
+}
+
 const Project = () => {
+  const t = useTranslations('ProjectPage');
   const [mounted, setMounted] = useState(false);
   const imageKasir: string[] = [];
   const imageSimpanPinjam: string[] = [];
+  const projects = t.raw('items') as ProjectCopy[];
 
   for (let i = 1; i <= 22; i++) {
     imageKasir.push(`/assets/image-projects/toko-kasir/kasir${i}.png`);
@@ -26,24 +34,24 @@ const Project = () => {
   return (
     <div className='w-full'>
       <div className='mb-8'>
-        <h1 className='text-2xl md:text-3xl font-bold capitalize'>Projects</h1>
-        <p className='mt-2 text-sm md:text-base'>A collection of web applications and dashboard projects I have built.</p>
+        <h1 className='text-2xl md:text-3xl font-bold capitalize'>{t('title')}</h1>
+        <p className='mt-2 text-sm md:text-base'>{t('subtitle')}</p>
       </div>
 
       <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
         <CardProject
           handleOpenCode={() => window.open('https://github.com/mardinajalah/commit_frontend', '_blank')}
           images={imageKasir}
-          title='Dashboard Web Kasir'
+          title={projects[0].title}
           techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma'
-          description='Web aplikasi kasir untuk usaha kecil dan menengah.'
+          description={projects[0].description}
         />
         <CardProject
           handleOpenCode={() => window.open('https://github.com/mardinajalah/commit_frontend', '_blank')}
           images={imageSimpanPinjam}
-          title='Dashboard Simpan Pinjam'
+          title={projects[1].title}
           techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma'
-          description='Web aplikasi simpan pinjam dan memiliki aplikasi mobilenya juga untuk usaha kecil dan menengah.'
+          description={projects[1].description}
         />
       </div>
     </div>
