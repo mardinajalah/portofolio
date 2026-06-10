@@ -168,5 +168,10 @@
       "send": "Kirim Pesan",
       "success": "Pratinjau pesan terkirim. Integrasi backend bisa ditambahkan berikutnya."
     }
+  },
+  "Metadata": {
+    "title": "Mardin | Fullstack Web Developer",
+    "description": "Portofolio pribadi Mardin, seorang Fullstack Web Developer dengan keahlian di React, Next.js, dan Node.js.",
+    "keywords": "Mardin, Fullstack Developer, Web Developer, React, Next.js, Portofolio"
   }
 }
