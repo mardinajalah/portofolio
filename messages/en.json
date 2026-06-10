@@ -168,5 +168,10 @@
       "send": "Send Message",
       "success": "Message preview submitted. Backend integration can be added next."
     }
+  },
+  "Metadata": {
+    "title": "Mardin | Fullstack Web Developer",
+    "description": "Personal portfolio of Mardin, a Fullstack Web Developer specialized in React, Next.js, and Node.js.",
+    "keywords": "Mardin, Fullstack Developer, Web Developer, React, Next.js, Portfolio"
   }
 }
