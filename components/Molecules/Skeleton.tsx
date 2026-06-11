@@ -93,7 +93,7 @@ export const SkeletonProjectPage = () => {
             key={index}
             className='overflow-hidden rounded-xl border border-gray-300/40 animate-pulse'
           >
-            <div className='aspect-[16/10] bg-gray-300 w-full' />
+            <div className='aspect-16/10 bg-gray-300 w-full' />
             <div className='p-4 bg-gray-300/20'>
               <div className='h-6 bg-gray-300 rounded-full w-2/3' />
               <div className='h-4 bg-gray-300 rounded-full w-full mt-4' />
@@ -124,7 +124,7 @@ export const SkeletonCertificatePage = () => {
             key={index}
             className='overflow-hidden rounded-xl border border-gray-300/40 animate-pulse'
           >
-            <div className='aspect-[4/3] bg-gray-300 w-full' />
+            <div className='aspect-4/3 bg-gray-300 w-full' />
             <div className='p-4 bg-gray-300/20'>
               <div className='h-6 bg-gray-300 rounded-full w-3/4' />
               <div className='h-4 bg-gray-300 rounded-full w-full mt-3' />
