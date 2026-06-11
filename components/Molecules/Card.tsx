@@ -40,7 +40,7 @@ export const CardProject: React.FC<CardProjectProps> = ({ images, title, techSta
           type='button'
           aria-label={t('openScreenshots', { title })}
           onClick={handleOpenImage}
-          className='group relative w-full aspect-[16/10] overflow-hidden cursor-pointer bg-gray-300/20'
+          className='group relative w-full aspect-16/10 overflow-hidden cursor-pointer bg-gray-300/20'
         >
           <Image
             src={coverImage}

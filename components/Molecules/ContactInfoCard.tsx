@@ -23,7 +23,7 @@ const ContactInfoCard = ({ href, icon, isDark, label, value }: ContactInfoCardPr
       </div>
       <div className='min-w-0'>
         <p className='text-sm text-gray-500 dark:text-gray-400'>{label}</p>
-        <p className='font-semibold break-words'>{value}</p>
+        <p className='font-semibold wrap-break-word'>{value}</p>
       </div>
     </div>
   );
