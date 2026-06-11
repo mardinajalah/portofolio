@@ -111,7 +111,7 @@ const ProjectImageModal = ({ currentIndex, images, onClose, setCurrentIndex, tit
 
         {hasMultipleImages && (
           <div className='px-4 pb-4 overflow-x-auto'>
-            <div className='flex gap-3 min-w-max'>
+            <div className='flex gap-3 min-w-max justify-center items-center'>
               {images.map((image, index) => (
                 <button
                   key={image}

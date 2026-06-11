@@ -90,6 +90,10 @@
       {
         "title": "Savings and Loan Dashboard",
         "description": "A savings and loan web application with a companion mobile app for small and medium businesses."
+      },
+      {
+        "title": "Financial Notes Application",
+        "description": "This application is for recording daily expenses and income so that we can track the flow of our personal money in and out."
       }
     ]
   },

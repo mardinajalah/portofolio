@@ -15,6 +15,7 @@ const Project = () => {
   const [mounted, setMounted] = useState(false);
   const imageKasir: string[] = [];
   const imageSimpanPinjam: string[] = [];
+  const imageCatatanKeuangan: string[] = [];
   const projects = t.raw('items') as ProjectCopy[];
 
   for (let i = 1; i <= 22; i++) {
@@ -23,6 +24,10 @@ const Project = () => {
 
   for (let i = 1; i <= 13; i++) {
     imageSimpanPinjam.push(`/assets/image-projects/simpan-pinjam/simpan${i}.png`);
+  }
+
+  for (let i = 1; i <= 7; i++) {
+    imageCatatanKeuangan.push(`/assets/image-projects/catatan-keuangan/catkeu${i}.png`);
   }
 
   useEffect(() => setMounted(true), []);
@@ -52,6 +57,13 @@ const Project = () => {
           title={projects[1].title}
           techStack='React TS, DaisyUI, Tailwind CSS, Express JS, MySQL, Prisma'
           description={projects[1].description}
+        />
+        <CardProject
+          handleOpenCode={() => window.open('https://github.com/mardinajalah/catatan-keuangan', '_blank')}
+          images={imageCatatanKeuangan}
+          title={projects[2].title}
+          techStack='React Native TS, expo router, Tailwind CSS, Express TS, Firebase'
+          description={projects[2].description}
         />
       </div>
     </div>

@@ -90,6 +90,10 @@
       {
         "title": "Dashboard Simpan Pinjam",
         "description": "Aplikasi web simpan pinjam yang juga memiliki aplikasi mobile pendamping untuk usaha kecil dan menengah."
+      },
+      {
+        "title": "Aplikasi Catatan Keuangan",
+        "description": "Aplikasi ini untuk mencatat pengeluaran dan pemasukan harian agar bisa mentreking keluar masuk uang pribadi kita."
       }
     ]
   },
