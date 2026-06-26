@@ -1,5 +1,6 @@
-import { getApps, initializeApp } from 'firebase/app';
+import { FirebaseApp, getApps, initializeApp } from 'firebase/app';
 import { Auth, getAuth } from 'firebase/auth';
+import { Firestore, getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,11 +13,18 @@ const firebaseConfig = {
 
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
 
-export const getFirebaseAuth = (): Auth => {
+export const getFirebaseApp = (): FirebaseApp => {
   if (!isFirebaseConfigured) {
     throw new Error('Firebase client environment variables are not configured.');
   }
 
-  const firebaseApp = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-  return getAuth(firebaseApp);
+  return getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+};
+
+export const getFirebaseAuth = (): Auth => {
+  return getAuth(getFirebaseApp());
+};
+
+export const getFirebaseDb = (): Firestore => {
+  return getFirestore(getFirebaseApp());
 };
