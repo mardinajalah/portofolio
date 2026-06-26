@@ -1,89 +1,93 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { LayoutDashboard, Loader2, LogOut } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { getFirebaseAuth, isFirebaseConfigured } from '@/lib/firebase/client';
+import { Award, ContactRound, Home, LayoutDashboard, PanelsTopLeft, UserRound } from 'lucide-react';
+import { useAdminAuth } from '@/components/admin/AdminAuthGuard';
 
 export const dynamic = 'force-dynamic';
 
-const adminMenus = ['Manage Profile', 'Manage About', 'Manage Projects', 'Manage Certificates', 'Manage Contact'];
+const adminModules = [
+  {
+    title: 'Contact Info',
+    description: 'Kelola Facebook, WhatsApp, Telegram, GitHub, dan lokasi.',
+    icon: ContactRound,
+    status: 'Tahap berikutnya',
+  },
+  {
+    title: 'Projects',
+    description: 'CRUD project bilingual lengkap dengan screenshot.',
+    icon: PanelsTopLeft,
+    status: 'Coming soon',
+  },
+  {
+    title: 'Certificates',
+    description: 'Kelola sertifikat dan gambar dari dashboard admin.',
+    icon: Award,
+    status: 'Coming soon',
+  },
+  {
+    title: 'Home Page',
+    description: 'Atur headline, intro, dan teks skill di halaman utama.',
+    icon: Home,
+    status: 'Coming soon',
+  },
+  {
+    title: 'About Page',
+    description: 'Kelola story, timeline, quick facts, dan fokus kerja.',
+    icon: UserRound,
+    status: 'Coming soon',
+  },
+];
 
 const AdminDashboardPage = () => {
-  const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
-  const [isCheckingSession, setIsCheckingSession] = useState(true);
-
-  useEffect(() => {
-    if (!isFirebaseConfigured) {
-      router.replace('/admin/login');
-      return;
-    }
-
-    const unsubscribe = onAuthStateChanged(getFirebaseAuth(), (currentUser) => {
-      if (!currentUser) {
-        router.replace('/admin/login');
-        return;
-      }
-
-      setUser(currentUser);
-      setIsCheckingSession(false);
-    });
-
-    return () => unsubscribe();
-  }, [router]);
-
-  const handleLogout = async () => {
-    await signOut(getFirebaseAuth());
-    router.replace('/admin/login');
-  };
-
-  if (isCheckingSession) {
-    return (
-      <main className='min-h-screen bg-(--bg) text-(--text) flex items-center justify-center p-4'>
-        <Loader2 className='animate-spin text-blue-500' />
-      </main>
-    );
-  }
+  const { user } = useAdminAuth();
 
   return (
-    <main className='min-h-screen bg-(--bg) text-(--text) p-4 md:p-8'>
-      <section className='max-w-5xl mx-auto'>
-        <div className='p-6 rounded-2xl backdrop-blur-xl border border-gray-700/40 bg-gray-800/20 shadow-lg'>
-          <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
-            <div>
-              <div className='w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5'>
-                <LayoutDashboard size={24} />
-              </div>
-              <h1 className='text-2xl md:text-3xl font-bold'>Admin Dashboard</h1>
-              <p className='mt-2 text-sm text-gray-400'>Login sebagai {user?.email}</p>
+    <div className='mx-auto max-w-5xl'>
+      <section className='rounded-2xl border border-gray-800 bg-gray-900/40 p-5 shadow-lg md:p-7'>
+        <div className='flex flex-col gap-5 md:flex-row md:items-start md:justify-between'>
+          <div>
+            <div className='mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-300'>
+              <LayoutDashboard size={24} />
             </div>
+            <p className='text-sm font-semibold uppercase tracking-[0.16em] text-blue-300'>Admin Dashboard</p>
+            <h1 className='mt-2 text-2xl font-bold md:text-3xl'>Pusat kontrol portofolio</h1>
+            <p className='mt-3 max-w-2xl text-sm leading-6 text-gray-400'>
+              Area ini menjadi fondasi untuk mengelola konten portfolio. Tahap pertama sudah menyiapkan proteksi route,
+              shell admin, dan navigasi awal untuk modul yang akan dibuat bertahap.
+            </p>
+          </div>
 
-            <button
-              type='button'
-              onClick={handleLogout}
-              className='inline-flex items-center justify-center gap-2 font-semibold px-4 py-3 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all shadow-md cursor-pointer'
-            >
-              <LogOut size={18} />
-              Logout
-            </button>
+          <div className='rounded-xl border border-gray-800 bg-black/20 px-4 py-3'>
+            <p className='text-xs font-semibold uppercase tracking-[0.16em] text-gray-500'>Session</p>
+            <p className='mt-1 max-w-64 truncate text-sm font-semibold text-gray-200'>{user.email}</p>
           </div>
         </div>
-
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6'>
-          {adminMenus.map((menu) => (
-            <div
-              key={menu}
-              className='p-5 rounded-xl backdrop-blur-xl border border-gray-700/40 bg-gray-800/20 shadow-md'
-            >
-              <h2 className='font-semibold'>{menu}</h2>
-              <p className='mt-2 text-sm text-gray-400'>Fitur ini akan dibuat pada tahap berikutnya.</p>
-            </div>
-          ))}
-        </div>
       </section>
-    </main>
+
+      <section className='mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'>
+        {adminModules.map((module) => {
+          const Icon = module.icon;
+
+          return (
+            <article
+              key={module.title}
+              className='rounded-xl border border-gray-800 bg-gray-900/35 p-5 shadow-md transition hover:border-gray-700 hover:bg-gray-900/55'
+            >
+              <div className='flex items-start justify-between gap-4'>
+                <div className='flex h-11 w-11 items-center justify-center rounded-lg bg-blue-500/10 text-blue-300'>
+                  <Icon size={21} />
+                </div>
+                <span className='rounded-full border border-gray-700 px-2.5 py-1 text-[11px] font-semibold text-gray-400'>
+                  {module.status}
+                </span>
+              </div>
+              <h2 className='mt-5 text-lg font-bold'>{module.title}</h2>
+              <p className='mt-2 text-sm leading-6 text-gray-400'>{module.description}</p>
+            </article>
+          );
+        })}
+      </section>
+    </div>
   );
 };
 
