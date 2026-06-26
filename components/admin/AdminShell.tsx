@@ -32,7 +32,7 @@ const adminNavigation = [
     href: '/admin/contact',
     label: 'Contact',
     icon: ContactRound,
-    isReady: false,
+    isReady: true,
   },
   {
     href: '/admin/projects',
