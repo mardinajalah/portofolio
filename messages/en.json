@@ -138,6 +138,16 @@
     "contactInfo": "Contact Info",
     "sendMessageTitle": "Send Message",
     "availability": "Availability",
+    "emptyStates": {
+      "contactInfo": {
+        "title": "Contact information is not available yet",
+        "description": "You can still use the message form to get in touch."
+      },
+      "availability": {
+        "title": "Availability information is not available yet",
+        "description": "Collaboration status and response times will appear here when available."
+      }
+    },
     "contactItems": {
       "facebook": "Facebook",
       "whatsapp": "WhatsApp",

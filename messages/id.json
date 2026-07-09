@@ -138,6 +138,16 @@
     "contactInfo": "Informasi Kontak",
     "sendMessageTitle": "Kirim Pesan",
     "availability": "Ketersediaan",
+    "emptyStates": {
+      "contactInfo": {
+        "title": "Informasi kontak belum tersedia",
+        "description": "Anda tetap dapat mengirim pesan melalui formulir untuk menghubungi saya."
+      },
+      "availability": {
+        "title": "Informasi ketersediaan belum tersedia",
+        "description": "Status kolaborasi dan waktu respons akan ditampilkan di sini saat tersedia."
+      }
+    },
     "contactItems": {
       "facebook": "Facebook",
       "whatsapp": "WhatsApp",

@@ -1,16 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  BriefcaseBusiness,
-  CalendarDays,
-  Clock,
-  Github,
-  MapPin,
-  MessageSquareText,
-  Sparkles,
-  type LucideIcon,
-} from 'lucide-react';
+import { BriefcaseBusiness, CalendarDays, CalendarX2, Clock, Github, Inbox, MapPin, MessageSquareText, Sparkles, type LucideIcon } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
@@ -19,20 +10,9 @@ import ContactForm from '@/components/Molecules/ContactForm';
 import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
 import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
-import {
-  AvailabilityIcon,
-  ContactAvailability,
-  fallbackContactAvailability,
-  getLocalizedAvailabilityText,
-  sortAvailabilityItems,
-} from '@/lib/contact-availability-utils';
-import {
-  ContactCard,
-  ContactInfo,
-  fallbackContactInfo,
-  getLocalizedContactText,
-  sortContactCards,
-} from '@/lib/contact-info-utils';
+import { SectionEmptyState } from '@/components/shared/SectionEmptyState';
+import { AvailabilityIcon, ContactAvailability, fallbackContactAvailability, getLocalizedAvailabilityText, sortAvailabilityItems } from '@/lib/contact-availability-utils';
+import { ContactCard, ContactInfo, fallbackContactInfo, getLocalizedContactText, sortContactCards } from '@/lib/contact-info-utils';
 
 type ContactPageContentProps = {
   contactAvailability: ContactAvailability;
@@ -49,19 +29,39 @@ const availabilityIcons: Record<AvailabilityIcon, LucideIcon> = {
 
 const getContactCardIcon = (card: ContactCard) => {
   if (card.icon === 'facebook') {
-    return <FontAwesomeIcon icon={faFacebook} className='text-xl' />;
+    return (
+      <FontAwesomeIcon
+        icon={faFacebook}
+        className='text-xl'
+      />
+    );
   }
 
   if (card.icon === 'whatsapp') {
-    return <FontAwesomeIcon icon={faWhatsapp} className='text-xl' />;
+    return (
+      <FontAwesomeIcon
+        icon={faWhatsapp}
+        className='text-xl'
+      />
+    );
   }
 
   if (card.icon === 'telegram') {
-    return <FontAwesomeIcon icon={faTelegram} className='text-xl' />;
+    return (
+      <FontAwesomeIcon
+        icon={faTelegram}
+        className='text-xl'
+      />
+    );
   }
 
   if (card.icon === 'linkedin') {
-    return <FontAwesomeIcon icon={faLinkedin} className='text-xl' />;
+    return (
+      <FontAwesomeIcon
+        icon={faLinkedin}
+        className='text-xl'
+      />
+    );
   }
 
   if (card.icon === 'github') {
@@ -101,18 +101,29 @@ const ContactPageContent = ({ contactAvailability, contactInfo }: ContactPageCon
             <h1 className='text-2xl font-bold capitalize'>{t('contactInfo')}</h1>
           </div>
 
-          <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4'>
-            {contactCards.map((card) => (
-              <ContactInfoCard
-                key={card.id}
-                href={card.href || undefined}
-                icon={getContactCardIcon(card)}
+          {contactCards.length === 0 ? (
+            <div className='mt-5'>
+              <SectionEmptyState
+                description={t('emptyStates.contactInfo.description')}
+                icon={Inbox}
                 isDark={isDark}
-                label={getLocalizedContactText(card.label, locale)}
-                value={getLocalizedContactText(card.value, locale)}
+                title={t('emptyStates.contactInfo.title')}
               />
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className='mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1'>
+              {contactCards.map((card) => (
+                <ContactInfoCard
+                  key={card.id}
+                  href={card.href || undefined}
+                  icon={getContactCardIcon(card)}
+                  isDark={isDark}
+                  label={getLocalizedContactText(card.label, locale)}
+                  value={getLocalizedContactText(card.value, locale)}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         <div className='lg:col-span-2'>
@@ -127,13 +138,22 @@ const ContactPageContent = ({ contactAvailability, contactInfo }: ContactPageCon
         </div>
       </section>
 
-      {availabilityItems.length > 0 && (
-        <section className='mt-10 border-t-2 border-gray-300 pt-8 dark:border-gray-700/40'>
-          <div className='flex items-center justify-start gap-2'>
-            <Sparkles size={25} />
-            <h1 className='text-2xl font-bold capitalize'>{t('availability')}</h1>
-          </div>
+      <section className='mt-10 border-t-2 border-gray-300 pt-8 dark:border-gray-700/40'>
+        <div className='flex items-center justify-start gap-2'>
+          <Sparkles size={25} />
+          <h1 className='text-2xl font-bold capitalize'>{t('availability')}</h1>
+        </div>
 
+        {availabilityItems.length === 0 ? (
+          <div className='mt-5'>
+            <SectionEmptyState
+              description={t('emptyStates.availability.description')}
+              icon={CalendarX2}
+              isDark={isDark}
+              title={t('emptyStates.availability.title')}
+            />
+          </div>
+        ) : (
           <div className='mt-5 grid grid-cols-1 gap-4 md:grid-cols-3'>
             {availabilityItems.map((item) => {
               const AvailabilityItemIcon = availabilityIcons[item.icon];
@@ -141,9 +161,7 @@ const ContactPageContent = ({ contactAvailability, contactInfo }: ContactPageCon
               return (
                 <div
                   key={item.id}
-                  className={`rounded-xl border p-5 shadow-md backdrop-blur-xl ${
-                    isDark ? 'border-gray-700/40 bg-gray-800/20' : 'border-white/30 bg-white/20'
-                  }`}
+                  className={`rounded-xl border p-5 shadow-md backdrop-blur-xl ${isDark ? 'border-gray-700/40 bg-gray-800/20' : 'border-white/30 bg-white/20'}`}
                 >
                   <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${isDark ? 'bg-blue-400/10 text-blue-400' : 'bg-blue-500/10 text-blue-500'}`}>
                     <AvailabilityItemIcon size={20} />
@@ -154,8 +172,8 @@ const ContactPageContent = ({ contactAvailability, contactInfo }: ContactPageCon
               );
             })}
           </div>
-        </section>
-      )}
+        )}
+      </section>
     </div>
   );
 };
