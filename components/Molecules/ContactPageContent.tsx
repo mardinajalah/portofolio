@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Clock, Github, Link, Mail, MapPin, MessageSquareText, Phone, Sparkles } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
 import { useLocale, useTranslations } from 'next-intl';
 import ContactForm from '@/components/Molecules/ContactForm';
@@ -38,6 +38,10 @@ const getContactCardIcon = (card: ContactCard) => {
 
   if (card.icon === 'telegram') {
     return <FontAwesomeIcon icon={faTelegram} className='text-xl' />;
+  }
+
+  if (card.icon === 'linkedin') {
+    return <FontAwesomeIcon icon={faLinkedin} className='text-xl' />;
   }
 
   if (card.icon === 'github') {

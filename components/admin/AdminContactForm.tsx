@@ -2,12 +2,10 @@
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import {
-  CheckCircle2,
   Loader2,
   MessageSquareText,
   Plus,
   Save,
-  ShieldAlert,
   X,
 } from 'lucide-react';
 import {
@@ -19,6 +17,7 @@ import {
   sortContactCards,
 } from '@/lib/contact-info-utils';
 import { getContactInfo, saveContactInfo } from '@/lib/contact-info';
+import { FloatingMessage } from '@/components/shared/FloatingMessage';
 import { AdminContactDataTable } from './AdminContactDataTable';
 
 const normalizeTableOrder = (cards: ContactCard[]) => {
@@ -157,7 +156,28 @@ export const AdminContactForm = () => {
   }
 
   return (
-    <section className='rounded-2xl border border-gray-800 bg-gray-900/40 p-5 shadow-lg md:p-7'>
+    <>
+      {message && (
+        <FloatingMessage
+          key={`success-${message}`}
+          message={message}
+          onClose={() => setMessage('')}
+          title='Berhasil'
+          type='success'
+        />
+      )}
+
+      {error && (
+        <FloatingMessage
+          key={`error-${error}`}
+          message={error}
+          onClose={() => setError('')}
+          title='Gagal'
+          type='error'
+        />
+      )}
+
+      <section className='rounded-2xl border border-gray-800 bg-gray-900/40 p-5 shadow-lg md:p-7'>
       <div className='flex flex-col gap-4 border-b border-gray-800 pb-6 md:flex-row md:items-start md:justify-between'>
         <div>
           <div className='mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-300'>
@@ -371,26 +391,7 @@ export const AdminContactForm = () => {
           </div>
         )}
       </div>
-
-      {message && (
-        <div className='mt-6 flex items-start gap-3 rounded-xl border border-emerald-500/25 bg-emerald-500/10 p-4 text-sm text-emerald-200'>
-          <CheckCircle2
-            className='mt-0.5 shrink-0'
-            size={18}
-          />
-          <p>{message}</p>
-        </div>
-      )}
-
-      {error && (
-        <div className='mt-6 flex items-start gap-3 rounded-xl border border-red-500/25 bg-red-500/10 p-4 text-sm text-red-200'>
-          <ShieldAlert
-            className='mt-0.5 shrink-0'
-            size={18}
-          />
-          <p>{error}</p>
-        </div>
-      )}
-    </section>
+      </section>
+    </>
   );
 };

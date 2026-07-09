@@ -2,6 +2,7 @@ export type ContactCardIcon =
   | 'facebook'
   | 'whatsapp'
   | 'telegram'
+  | 'linkedin'
   | 'github'
   | 'location'
   | 'link'
@@ -32,11 +33,9 @@ export const contactIconOptions: { value: ContactCardIcon; label: string }[] = [
   { value: 'facebook', label: 'Facebook' },
   { value: 'whatsapp', label: 'WhatsApp' },
   { value: 'telegram', label: 'Telegram' },
-  { value: 'github', label: 'GitHub' },
-  { value: 'location', label: 'Location' },
-  { value: 'link', label: 'Link' },
   { value: 'mail', label: 'Email' },
-  { value: 'phone', label: 'Phone' },
+  { value: 'linkedin', label: 'LinkedIn' },
+  { value: 'location', label: 'Location' },
 ];
 
 export const fallbackContactCards: ContactCard[] = [
@@ -93,7 +92,7 @@ export const fallbackContactInfo: ContactInfo = {
 
 export const createBlankContactCard = (order: number): ContactCard => ({
   id: `contact-${Date.now()}`,
-  icon: 'link',
+  icon: 'facebook',
   label: {
     en: 'New Contact',
     id: 'Kontak Baru',

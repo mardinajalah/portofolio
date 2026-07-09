@@ -14,7 +14,17 @@ export { fallbackContactInfo } from '@/lib/contact-info-utils';
 
 const contactInfoCollection = 'siteContent';
 const contactInfoDocument = 'contactInfo';
-const allowedIcons: ContactCardIcon[] = ['facebook', 'whatsapp', 'telegram', 'github', 'location', 'link', 'mail', 'phone'];
+const allowedIcons: ContactCardIcon[] = [
+  'facebook',
+  'whatsapp',
+  'telegram',
+  'linkedin',
+  'github',
+  'location',
+  'link',
+  'mail',
+  'phone',
+];
 
 const asString = (value: unknown, fallback = '') => {
   return typeof value === 'string' ? value.trim() : fallback;
@@ -31,7 +41,7 @@ const asNumber = (value: unknown, fallback: number) => {
 const asIcon = (value: unknown): ContactCardIcon => {
   return typeof value === 'string' && allowedIcons.includes(value as ContactCardIcon)
     ? (value as ContactCardIcon)
-    : 'link';
+    : 'facebook';
 };
 
 const normalizeLocalizedText = (value: unknown, fallback: ContactCard['label']) => {
