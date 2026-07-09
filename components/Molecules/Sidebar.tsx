@@ -1,26 +1,22 @@
 'use client';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { DarkModeToggle, LanguageToggle } from '../Atoms/ButtonToggle';
 import { Link, usePathname } from '@/i18n/navigation';
-import { useTheme } from 'next-themes';
 import { useTranslations } from 'next-intl';
-import { SkeletonSidebar } from './Skeleton';
-import { House, User, MonitorCog, Dock, Github, CardSim, PanelRightClose, PanelRightOpen } from 'lucide-react';
+import { House, User, MonitorCog, Dock, Github, CardSim } from 'lucide-react';
+import { AppSidebar } from '@/components/shared/AppSidebar';
+import { SidebarNavigationItem } from '@/components/shared/sidebar-types';
 
 interface SidebarProps {
   isOpenSidebar: boolean;
-  setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOpenSidebar: Dispatch<SetStateAction<boolean>>;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) => {
-  const { theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+const Sidebar = ({ isOpenSidebar, setIsOpenSidebar }: SidebarProps) => {
   const pathname = usePathname();
   const t = useTranslations('Sidebar');
-  const isDark = theme === 'dark';
 
-  const dataNavigation = [
+  const dataNavigation: SidebarNavigationItem[] = [
     { name: t('home'), href: '/', icon: <House size={20} /> },
     { name: t('about'), href: '/about', icon: <User size={20} /> },
     { name: t('project'), href: '/project', icon: <MonitorCog size={20} /> },
@@ -29,107 +25,27 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpenSidebar, setIsOpenSidebar }) =>
     { name: t('contact'), href: '/contact', icon: <CardSim size={20} /> },
   ];
 
-  useEffect(() => {
-    setMounted(true);
-
-    // fungsi untuk cek ukuran layar
-    const handleResize = () => {
-      if (window.innerWidth <= 1024) {
-        setIsOpenSidebar(false);
-      }
-
-      if (window.innerWidth > 1024) {
-        setIsOpenSidebar(true);
-      }
-    };
-
-    // cek langsung pas pertama render
-    handleResize();
-
-    // pasang listener resize
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [setIsOpenSidebar]);
-
-  if (!mounted) return <SkeletonSidebar />;
-
   return (
-    <>
-      {/* Tombol toggle pojok kiri atas */}
-      <div
-        className='fixed top-4 left-4 z-50 cursor-pointer bg-(--bg) text-(--text) p-2 rounded-lg shadow'
-        onClick={() => setIsOpenSidebar((prev) => !prev)}
-      >
-        {isOpenSidebar ? <PanelRightClose size={20} /> : <PanelRightOpen size={20} />}
-      </div>
-
-      {/* Overlay (hanya muncul di mobile/tablet ketika sidebar terbuka) */}
-      {isOpenSidebar && (
-        <div
-          className='fixed inset-0 bg-black/50 z-30 md:hidden'
-          onClick={() => setIsOpenSidebar(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <div
-        className={`
-          fixed top-0 left-0 h-full w-62.5 p-4 flex flex-col gap-3 items-center
-          transition-all duration-300 z-40 shadow
-          ${isDark ? `bg-gray-900 text-white ${isOpenSidebar ? 'shadow-gray-700' : ''}` : 'bg-white text-black'}
-          bg-opacity-100
-          md:bg-(--bg) md:text-(--text)
-          ${isOpenSidebar ? 'translate-x-0' : '-translate-x-full'}
-        `}
-      >
-        {/* Profile */}
-        <div className='rounded-full overflow-hidden flex justify-center w-25 h-25 mt-2'>
-          <Image
-            alt='profile'
-            src='/profile/profile.png'
-            width={200}
-            height={200}
-            priority
-          />
-        </div>
-
-        {/* Name */}
-        <div className='flex items-center justify-center gap-1'>
-          <h1 className='text-2xl font-bold text-center'>Mardin</h1>
-          <Image
-            alt='centang biru'
-            src='/icon/bluecheck.png'
-            height={20}
-            width={20}
-          />
-        </div>
-
-        {/* Controls */}
-        <div className='flex items-center gap-2 w-full justify-between capitalize border-b border-gray-300 dark:border-gray-700/40 pb-4'>
+    <AppSidebar
+      activePathname={pathname}
+      controls={
+        <div className='flex w-full items-center justify-between gap-2 border-b border-gray-300 pb-4 capitalize dark:border-gray-700/40'>
           <DarkModeToggle />
           <LanguageToggle />
         </div>
-
-        {/* Navigation */}
-        <div className='w-full flex flex-col gap-2 mt-5'>
-          {dataNavigation.map((nav, index) => {
-            const isActive = pathname === nav.href;
-            return (
-              <Link
-                key={index}
-                href={nav.href}
-                className={`p-2 font-semibold rounded-xl transition-colors flex gap-2 justify-start items-center
-              ${isActive ? (isDark ? 'bg-gray-800 text-white' : 'bg-gray-300 text-black') : isDark ? 'hover:bg-gray-800 text-gray-200' : 'hover:bg-gray-300 text-gray-700'}
-            `}
-              >
-                {nav.icon}
-                {nav.name}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </>
+      }
+      isOpenSidebar={isOpenSidebar}
+      navigationItems={dataNavigation}
+      renderLink={(item, className, children) => (
+        <Link
+          href={item.href}
+          className={className}
+        >
+          {children}
+        </Link>
+      )}
+      setIsOpenSidebar={setIsOpenSidebar}
+    />
   );
 };
 
