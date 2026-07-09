@@ -29,6 +29,7 @@ const FormContactInfo = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [shouldReturnToTable, setShouldReturnToTable] = useState(false);
   const isAdding = !editingCardId;
   const inputClassName = `mt-2 w-full rounded-lg border px-4 py-3 text-sm outline-none transition placeholder:text-gray-500 ${
     isDark
@@ -78,6 +79,7 @@ const FormContactInfo = () => {
 
     setMessage('');
     setError('');
+    setShouldReturnToTable(false);
     setIsSaving(true);
 
     const nextCards = isAdding
@@ -86,11 +88,10 @@ const FormContactInfo = () => {
 
     try {
       await saveContactInfo({ cards: normalizeTableOrder(nextCards) });
+      setShouldReturnToTable(true);
       setMessage(isAdding ? 'Card kontak baru berhasil ditambahkan.' : 'Card kontak berhasil diperbarui.');
-      window.setTimeout(() => {
-        router.push('/admin/contact');
-      }, 700);
     } catch {
+      setShouldReturnToTable(false);
       setError('Gagal menyimpan card kontak. Pastikan Firestore rules sudah sesuai dan akun admin punya akses.');
     } finally {
       setIsSaving(false);
@@ -134,7 +135,13 @@ const FormContactInfo = () => {
         <FloatingMessage
           key={`success-${message}`}
           message={message}
-          onClose={() => setMessage('')}
+          onClose={() => {
+            setMessage('');
+
+            if (shouldReturnToTable) {
+              router.push('/admin/contact');
+            }
+          }}
           title='Berhasil'
           type='success'
         />
