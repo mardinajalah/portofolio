@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { ColumnDef, SortingState, flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
-import { ArrowDown, ArrowDownUp, ArrowUp, Loader2, Pencil, Trash2 } from 'lucide-react';
+import { ArrowDown, ArrowDownUp, ArrowUp, Loader2, Pencil, Plus, Trash2 } from 'lucide-react';
 import { ContactCard, contactIconOptions } from '@/lib/contact-info-utils';
 
 type AdminContactDataTableProps = {
@@ -11,6 +11,7 @@ type AdminContactDataTableProps = {
   isSaving: boolean;
   onDelete: (cardId: string) => void;
   onEdit: (card: ContactCard) => void;
+  addCard: () => void
 };
 
 const iconLabels = Object.fromEntries(contactIconOptions.map((option) => [option.value, option.label]));
@@ -27,7 +28,7 @@ const getSortIcon = (sortDirection: false | 'asc' | 'desc') => {
   return <ArrowDownUp size={13} />;
 };
 
-export const AdminContactDataTable = ({ cards, deletingCardId, isSaving, onDelete, onEdit }: AdminContactDataTableProps) => {
+export const AdminContactDataTable = ({ cards, deletingCardId, isSaving, onDelete, onEdit, addCard }: AdminContactDataTableProps) => {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const columns = useMemo<ColumnDef<ContactCard>[]>(
@@ -165,14 +166,23 @@ export const AdminContactDataTable = ({ cards, deletingCardId, isSaving, onDelet
     },
   });
 
+  // rounded-2xl border border-gray-800 bg-gray-900/40 p-5 shadow-lg md:p-7
+
   return (
-    <div className='mt-6 overflow-hidden rounded-xl border border-gray-800 bg-gray-950/30 shadow-lg shadow-black/10'>
-      <div className='flex items-center justify-between gap-3 border-b border-gray-800 bg-gray-950/50 px-4 py-3'>
+    <div className='rounded-2xl border border-gray-800 bg-gray-900/40 p-5 shadow-lg md:p-7'>
+      <div className='flex items-center justify-between gap-3 px-4 py-3'>
         <div>
           <p className='text-sm font-semibold text-gray-100'>Daftar card kontak</p>
           <p className='mt-1 text-xs text-gray-500'>{cards.length} card tersimpan</p>
         </div>
-        <span className='rounded-full border border-gray-700 bg-black/20 px-3 py-1 text-xs font-semibold text-gray-400'>TanStack Table</span>
+        <button
+          type='button'
+          onClick={addCard}
+          className='inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-blue-400/40 bg-blue-500/10 px-4 py-3 text-sm font-semibold text-blue-200 transition hover:bg-blue-500/20'
+        >
+          <Plus size={18} />
+          Tambah
+        </button>
       </div>
 
       <div className='overflow-x-auto'>

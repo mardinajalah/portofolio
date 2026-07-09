@@ -1,21 +1,8 @@
 'use client';
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
-import {
-  Loader2,
-  MessageSquareText,
-  Plus,
-  Save,
-  X,
-} from 'lucide-react';
-import {
-  ContactCard,
-  ContactInfo,
-  contactIconOptions,
-  createBlankContactCard,
-  fallbackContactInfo,
-  sortContactCards,
-} from '@/lib/contact-info-utils';
+import { Loader2, MessageSquareText, Plus, Save, X } from 'lucide-react';
+import { ContactCard, ContactInfo, contactIconOptions, createBlankContactCard, fallbackContactInfo, sortContactCards } from '@/lib/contact-info-utils';
 import { getContactInfo, saveContactInfo } from '@/lib/contact-info';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
 import { AdminContactDataTable } from './AdminContactDataTable';
@@ -125,9 +112,7 @@ export const AdminContactForm = () => {
       return;
     }
 
-    const nextCards = isAdding
-      ? [...formData.cards, editingCard]
-      : formData.cards.map((card) => (card.id === editingCard.id ? editingCard : card));
+    const nextCards = isAdding ? [...formData.cards, editingCard] : formData.cards.map((card) => (card.id === editingCard.id ? editingCard : card));
 
     const didSave = await persistContactInfo(
       {
@@ -177,35 +162,13 @@ export const AdminContactForm = () => {
         />
       )}
 
-      <section className='rounded-2xl border border-gray-800 bg-gray-900/40 p-5 shadow-lg md:p-7'>
-      <div className='flex flex-col gap-4 border-b border-gray-800 pb-6 md:flex-row md:items-start md:justify-between'>
-        <div>
-          <div className='mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-300'>
-            <MessageSquareText size={24} />
-          </div>
-          <p className='text-sm font-semibold uppercase tracking-[0.16em] text-blue-300'>Contact Cards</p>
-          <h1 className='mt-2 text-2xl font-bold md:text-3xl'>Kelola card kontak</h1>
-          <p className='mt-3 max-w-2xl text-sm leading-6 text-gray-400'>
-            Tabel dipakai untuk melihat daftar card. Penambahan dan perubahan data dilakukan lewat form terpisah.
-          </p>
-        </div>
-
-        <button
-          type='button'
-          onClick={addCard}
-          className='inline-flex items-center justify-center gap-2 rounded-lg border border-blue-400/40 bg-blue-500/10 px-4 py-3 text-sm font-semibold text-blue-200 transition hover:bg-blue-500/20'
-        >
-          <Plus size={18} />
-          Tambah Card
-        </button>
-      </div>
-
       <AdminContactDataTable
         cards={formData.cards}
         deletingCardId={deletingCardId}
         isSaving={isSaving}
         onDelete={removeCard}
         onEdit={editCard}
+        addCard={addCard}
       />
 
       <div
@@ -219,9 +182,7 @@ export const AdminContactForm = () => {
           >
             <div className='flex flex-col gap-3 border-b border-gray-800 pb-5 md:flex-row md:items-start md:justify-between'>
               <div>
-                <p className='text-xs font-semibold uppercase tracking-[0.16em] text-blue-300'>
-                  {isAdding ? 'Tambah Card' : 'Edit Card'}
-                </p>
+                <p className='text-xs font-semibold uppercase tracking-[0.16em] text-blue-300'>{isAdding ? 'Tambah Card' : 'Edit Card'}</p>
                 <h2 className='mt-2 text-xl font-bold'>{isAdding ? 'Form input card baru' : editingCard.label.id}</h2>
               </div>
               <button
@@ -386,12 +347,9 @@ export const AdminContactForm = () => {
             </div>
           </form>
         ) : (
-          <div className='rounded-xl border border-dashed border-gray-700 bg-black/10 p-5 text-sm text-gray-400'>
-            Klik `Tambah Card` untuk membuka form input, atau klik `Edit` pada salah satu baris tabel.
-          </div>
+          <div className='rounded-xl border border-dashed border-gray-700 bg-black/10 p-5 text-sm text-gray-400'>Klik `Tambah Card` untuk membuka form input, atau klik `Edit` pada salah satu baris tabel.</div>
         )}
       </div>
-      </section>
     </>
   );
 };
