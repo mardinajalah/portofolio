@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Loader2, MessageSquareText, Plus, Save, X } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { ContactCard, ContactInfo, contactIconOptions, createBlankContactCard, fallbackContactInfo, sortContactCards } from '@/lib/contact-info-utils';
 import { getContactInfo, saveContactInfo } from '@/lib/contact-info';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
@@ -17,6 +18,8 @@ const normalizeTableOrder = (cards: ContactCard[]) => {
 const emptyEditingCard = (order: number) => createBlankContactCard(order);
 
 export const AdminContactForm = () => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [formData, setFormData] = useState<ContactInfo>(fallbackContactInfo);
   const [editingCard, setEditingCard] = useState<ContactCard | null>(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -26,6 +29,12 @@ export const AdminContactForm = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const formPanelRef = useRef<HTMLDivElement | null>(null);
+  const inputClassName = `mt-2 w-full rounded-lg border px-4 py-3 text-sm outline-none transition placeholder:text-gray-500 ${
+    isDark
+      ? 'border-gray-700/70 bg-black/20 text-gray-100 focus:border-blue-400'
+      : 'border-white/50 bg-white/40 text-gray-900 focus:border-blue-500'
+  }`;
+  const labelClassName = `text-sm font-semibold ${isDark ? 'text-gray-200' : 'text-gray-700'}`;
 
   useEffect(() => {
     let isMounted = true;
@@ -128,8 +137,8 @@ export const AdminContactForm = () => {
 
   if (isLoading) {
     return (
-      <section className='rounded-2xl border border-gray-800 bg-gray-900/40 p-6 shadow-lg'>
-        <div className='flex items-center gap-3 text-gray-300'>
+      <section className={`rounded-2xl border p-6 shadow-lg ${isDark ? 'border-gray-800 bg-gray-900/40' : 'border-white/30 bg-white/20'}`}>
+        <div className={`flex items-center gap-3 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
           <Loader2
             className='animate-spin text-blue-300'
             size={20}
@@ -165,6 +174,7 @@ export const AdminContactForm = () => {
       <AdminContactDataTable
         cards={formData.cards}
         deletingCardId={deletingCardId}
+        isDark={isDark}
         isSaving={isSaving}
         onDelete={removeCard}
         onEdit={editCard}
@@ -178,9 +188,9 @@ export const AdminContactForm = () => {
         {editingCard ? (
           <form
             onSubmit={handleSubmit}
-            className='rounded-xl border border-gray-800 bg-black/20 p-5'
+            className={`rounded-xl border p-5 ${isDark ? 'border-gray-800 bg-black/20' : 'border-white/30 bg-white/20'}`}
           >
-            <div className='flex flex-col gap-3 border-b border-gray-800 pb-5 md:flex-row md:items-start md:justify-between'>
+            <div className={`flex flex-col gap-3 border-b pb-5 md:flex-row md:items-start md:justify-between ${isDark ? 'border-gray-800' : 'border-gray-300'}`}>
               <div>
                 <p className='text-xs font-semibold uppercase tracking-[0.16em] text-blue-300'>{isAdding ? 'Tambah Card' : 'Edit Card'}</p>
                 <h2 className='mt-2 text-xl font-bold'>{isAdding ? 'Form input card baru' : editingCard.label.id}</h2>
@@ -188,7 +198,9 @@ export const AdminContactForm = () => {
               <button
                 type='button'
                 onClick={closeForm}
-                className='inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-gray-700 bg-gray-900 px-3 text-sm font-semibold text-gray-300 transition hover:bg-gray-800'
+                className={`inline-flex h-10 items-center justify-center gap-2 rounded-lg border px-3 text-sm font-semibold transition ${
+                  isDark ? 'border-gray-700 bg-gray-900 text-gray-300 hover:bg-gray-800' : 'border-gray-300 bg-white/50 text-gray-700 hover:bg-white/80'
+                }`}
               >
                 <X size={16} />
                 Batal
@@ -197,7 +209,7 @@ export const AdminContactForm = () => {
 
             <div className='mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2'>
               <label className='block'>
-                <span className='text-sm font-semibold text-gray-200'>Icon</span>
+                <span className={labelClassName}>Icon</span>
                 <select
                   value={editingCard.icon}
                   onChange={(event) =>
@@ -206,13 +218,13 @@ export const AdminContactForm = () => {
                       icon: event.target.value as ContactCard['icon'],
                     }))
                   }
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition focus:border-blue-400'
+                  className={inputClassName}
                 >
                   {contactIconOptions.map((option) => (
                     <option
                       key={option.value}
                       value={option.value}
-                      className='bg-gray-950 text-gray-100'
+                      className={isDark ? 'bg-gray-950 text-gray-100' : 'bg-white text-gray-900'}
                     >
                       {option.label}
                     </option>
@@ -221,7 +233,7 @@ export const AdminContactForm = () => {
               </label>
 
               <label className='block'>
-                <span className='text-sm font-semibold text-gray-200'>Urutan</span>
+                <span className={labelClassName}>Urutan</span>
                 <input
                   type='number'
                   min='1'
@@ -232,12 +244,12 @@ export const AdminContactForm = () => {
                       order: Number(event.target.value) || 1,
                     }))
                   }
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition focus:border-blue-400'
+                  className={inputClassName}
                 />
               </label>
 
               <label className='block'>
-                <span className='text-sm font-semibold text-gray-200'>Label ID</span>
+                <span className={labelClassName}>Label ID</span>
                 <input
                   type='text'
                   value={editingCard.label.id}
@@ -247,12 +259,12 @@ export const AdminContactForm = () => {
                       label: { ...current.label, id: event.target.value },
                     }))
                   }
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition focus:border-blue-400'
+                  className={inputClassName}
                 />
               </label>
 
               <label className='block'>
-                <span className='text-sm font-semibold text-gray-200'>Label EN</span>
+                <span className={labelClassName}>Label EN</span>
                 <input
                   type='text'
                   value={editingCard.label.en}
@@ -262,12 +274,12 @@ export const AdminContactForm = () => {
                       label: { ...current.label, en: event.target.value },
                     }))
                   }
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition focus:border-blue-400'
+                  className={inputClassName}
                 />
               </label>
 
               <label className='block'>
-                <span className='text-sm font-semibold text-gray-200'>Value ID</span>
+                <span className={labelClassName}>Value ID</span>
                 <input
                   type='text'
                   value={editingCard.value.id}
@@ -277,12 +289,12 @@ export const AdminContactForm = () => {
                       value: { ...current.value, id: event.target.value },
                     }))
                   }
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition focus:border-blue-400'
+                  className={inputClassName}
                 />
               </label>
 
               <label className='block'>
-                <span className='text-sm font-semibold text-gray-200'>Value EN</span>
+                <span className={labelClassName}>Value EN</span>
                 <input
                   type='text'
                   value={editingCard.value.en}
@@ -292,12 +304,12 @@ export const AdminContactForm = () => {
                       value: { ...current.value, en: event.target.value },
                     }))
                   }
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition focus:border-blue-400'
+                  className={inputClassName}
                 />
               </label>
 
               <label className='block lg:col-span-2'>
-                <span className='text-sm font-semibold text-gray-200'>Link URL</span>
+                <span className={labelClassName}>Link URL</span>
                 <input
                   type='text'
                   value={editingCard.href}
@@ -308,11 +320,11 @@ export const AdminContactForm = () => {
                     }))
                   }
                   placeholder='Kosongkan jika card bukan link, misalnya lokasi.'
-                  className='mt-2 w-full rounded-lg border border-gray-700/70 bg-black/20 px-4 py-3 text-sm text-gray-100 outline-none transition placeholder:text-gray-600 focus:border-blue-400'
+                  className={inputClassName}
                 />
               </label>
 
-              <label className='flex items-center gap-3 rounded-lg border border-gray-800 bg-gray-950/40 px-4 py-3 lg:col-span-2'>
+              <label className={`flex items-center gap-3 rounded-lg border px-4 py-3 lg:col-span-2 ${isDark ? 'border-gray-800 bg-gray-950/40' : 'border-white/30 bg-white/30'}`}>
                 <input
                   type='checkbox'
                   checked={editingCard.isActive}
@@ -324,7 +336,7 @@ export const AdminContactForm = () => {
                   }
                   className='h-4 w-4 accent-blue-500'
                 />
-                <span className='text-sm font-semibold text-gray-200'>Tampilkan card ini di halaman pengunjung</span>
+                <span className={labelClassName}>Tampilkan card ini di halaman pengunjung</span>
               </label>
             </div>
 
@@ -347,7 +359,7 @@ export const AdminContactForm = () => {
             </div>
           </form>
         ) : (
-          <div className='rounded-xl border border-dashed border-gray-700 bg-black/10 p-5 text-sm text-gray-400'>Klik `Tambah Card` untuk membuka form input, atau klik `Edit` pada salah satu baris tabel.</div>
+          <div className={`rounded-xl border border-dashed p-5 text-sm ${isDark ? 'border-gray-700 bg-black/10 text-gray-400' : 'border-gray-300 bg-white/20 text-gray-600'}`}>Klik `Tambah Card` untuk membuka form input, atau klik `Edit` pada salah satu baris tabel.</div>
         )}
       </div>
     </>

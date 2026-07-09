@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import {
   Award,
   ContactRound,
@@ -73,25 +74,27 @@ export const AdminSidebar = ({
   userEmail,
 }: AdminSidebarProps) => {
   const pathname = usePathname();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <AppSidebar
       activePathname={pathname}
       header={
         <div className='mt-8 w-full text-center'>
-          <p className='text-sm font-semibold uppercase tracking-[0.32em] text-blue-500 dark:text-blue-400'>
+          <p className={`text-sm font-semibold uppercase tracking-[0.32em] ${isDark ? 'text-blue-400' : 'text-blue-500'}`}>
             PORTFOLIO
           </p>
           <h1 className='mt-2 text-2xl font-bold'>Admin Panel</h1>
         </div>
       }
       controls={
-        <div className='flex w-full items-center justify-center border-b border-gray-300 pb-4 dark:border-gray-700/40'>
+        <div className={`flex w-full items-center justify-center border-b pb-4 ${isDark ? 'border-gray-700/40' : 'border-gray-300'}`}>
           <DarkModeToggle />
         </div>
       }
       footer={
-        <div className='mt-auto w-full border-t border-gray-300 pt-4 dark:border-gray-700/40'>
+        <div className={`mt-auto w-full border-t pt-4 ${isDark ? 'border-gray-700/40' : 'border-gray-300'}`}>
           <p className='text-xs font-semibold uppercase tracking-[0.16em] text-gray-500'>Logged in</p>
           <p className='mt-2 truncate text-sm font-semibold'>{userEmail}</p>
           <button

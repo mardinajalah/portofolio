@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
+import { ThemeProvider } from 'next-themes';
 import { AdminAuthGuard } from './AdminAuthGuard';
 import { AdminShell } from './AdminShell';
 
@@ -14,12 +15,26 @@ export const AdminRouteBoundary = ({ children }: AdminRouteBoundaryProps) => {
   const isPublicAdminRoute = pathname === '/admin/login' || pathname === '/admin';
 
   if (isPublicAdminRoute) {
-    return <>{children}</>;
+    return (
+      <ThemeProvider
+        attribute='class'
+        defaultTheme='dark'
+        enableSystem
+      >
+        {children}
+      </ThemeProvider>
+    );
   }
 
   return (
-    <AdminAuthGuard>
-      <AdminShell>{children}</AdminShell>
-    </AdminAuthGuard>
+    <ThemeProvider
+      attribute='class'
+      defaultTheme='dark'
+      enableSystem
+    >
+      <AdminAuthGuard>
+        <AdminShell>{children}</AdminShell>
+      </AdminAuthGuard>
+    </ThemeProvider>
   );
 };

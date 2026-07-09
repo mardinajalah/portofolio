@@ -4,12 +4,15 @@ import { FormEvent, useEffect, useState } from 'react';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { LockKeyhole, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import { getFirebaseAuth, isFirebaseConfigured } from '@/lib/firebase/client';
 
 export const dynamic = 'force-dynamic';
 
 const AdminLoginPage = () => {
   const router = useRouter();
+  const { resolvedTheme, theme } = useTheme();
+  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -65,13 +68,13 @@ const AdminLoginPage = () => {
 
   return (
     <main className='min-h-screen bg-(--bg) text-(--text) flex items-center justify-center p-4'>
-      <section className='w-full max-w-md p-6 rounded-2xl backdrop-blur-xl border border-gray-700/40 bg-gray-800/20 shadow-lg'>
-        <div className='w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5'>
+      <section className={`w-full max-w-md p-6 rounded-2xl backdrop-blur-xl border shadow-lg ${isDark ? 'border-gray-700/50 bg-gray-900/70' : 'border-white/30 bg-white/20'}`}>
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${isDark ? 'bg-blue-400/10 text-blue-400' : 'bg-blue-500/10 text-blue-500'}`}>
           <LockKeyhole size={24} />
         </div>
 
         <h1 className='text-2xl font-bold'>Admin Login</h1>
-        <p className='mt-2 text-sm text-gray-400'>Masuk untuk mengelola konten portofolio.</p>
+        <p className={`mt-2 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Masuk untuk mengelola konten portofolio.</p>
 
         <form
           onSubmit={handleSubmit}
@@ -91,7 +94,9 @@ const AdminLoginPage = () => {
               onChange={(event) => setEmail(event.target.value)}
               required
               placeholder='admin@email.com'
-              className='mt-2 w-full px-4 py-3 rounded-lg outline-none border bg-gray-900/30 border-gray-700/60 focus:border-blue-400 placeholder:text-gray-500'
+              className={`mt-2 w-full px-4 py-3 rounded-lg outline-none border transition placeholder:text-gray-500 ${
+                isDark ? 'bg-gray-950/60 border-gray-700/70 text-gray-100 focus:border-blue-400' : 'bg-white/40 border-white/50 text-gray-900 focus:border-blue-500'
+              }`}
             />
           </div>
 
@@ -109,7 +114,9 @@ const AdminLoginPage = () => {
               onChange={(event) => setPassword(event.target.value)}
               required
               placeholder='••••••••'
-              className='mt-2 w-full px-4 py-3 rounded-lg outline-none border bg-gray-900/30 border-gray-700/60 focus:border-blue-400 placeholder:text-gray-500'
+              className={`mt-2 w-full px-4 py-3 rounded-lg outline-none border transition placeholder:text-gray-500 ${
+                isDark ? 'bg-gray-950/60 border-gray-700/70 text-gray-100 focus:border-blue-400' : 'bg-white/40 border-white/50 text-gray-900 focus:border-blue-500'
+              }`}
             />
           </div>
 

@@ -2,7 +2,6 @@
 
 import { ReactNode, useState } from 'react';
 import { signOut } from 'firebase/auth';
-import { ThemeProvider } from 'next-themes';
 import { useRouter } from 'next/navigation';
 import { getFirebaseAuth } from '@/lib/firebase/client';
 import { SidebarLayout } from '@/components/shared/SidebarLayout';
@@ -25,26 +24,20 @@ export const AdminShell = ({ children }: AdminShellProps) => {
   };
 
   return (
-    <ThemeProvider
-      attribute='class'
-      defaultTheme='dark'
-      enableSystem
-    >
-      <main className='min-h-screen bg-(--bg) text-(--text)'>
-        <SidebarLayout
-          renderSidebar={({ isOpenSidebar, setIsOpenSidebar }) => (
-            <AdminSidebar
-              isLoggingOut={isLoggingOut}
-              isOpenSidebar={isOpenSidebar}
-              onLogout={handleLogout}
-              setIsOpenSidebar={setIsOpenSidebar}
-              userEmail={user.email}
-            />
-          )}
-        >
-          {children}
-        </SidebarLayout>
-      </main>
-    </ThemeProvider>
+    <main className='min-h-screen bg-(--bg) text-(--text)'>
+      <SidebarLayout
+        renderSidebar={({ isOpenSidebar, setIsOpenSidebar }) => (
+          <AdminSidebar
+            isLoggingOut={isLoggingOut}
+            isOpenSidebar={isOpenSidebar}
+            onLogout={handleLogout}
+            setIsOpenSidebar={setIsOpenSidebar}
+            userEmail={user.email}
+          />
+        )}
+      >
+        {children}
+      </SidebarLayout>
+    </main>
   );
 };

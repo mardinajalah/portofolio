@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Clock, Github, Link, Mail, MapPin, MessageSquareText, Phone, Sparkles } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
@@ -9,7 +8,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import ContactForm from '@/components/Molecules/ContactForm';
 import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
-import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
 import {
   ContactCard,
   ContactInfo,
@@ -66,42 +64,9 @@ const getContactCardIcon = (card: ContactCard) => {
 const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
   const t = useTranslations('ContactPage');
   const locale = useLocale();
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-  const [mounted, setMounted] = useState(false);
-  const [currentContactInfo, setCurrentContactInfo] = useState<ContactInfo>(contactInfo);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const loadContactInfo = async () => {
-      try {
-        const response = await fetch('/api/contact-info', { cache: 'no-store' });
-
-        if (!response.ok) {
-          return;
-        }
-
-        const nextContactInfo = (await response.json()) as ContactInfo;
-
-        if (isMounted) {
-          setCurrentContactInfo(nextContactInfo);
-        }
-      } finally {
-        if (isMounted) {
-          setMounted(true);
-        }
-      }
-    };
-
-    loadContactInfo();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const safeContactInfo = currentContactInfo ?? fallbackContactInfo;
+  const { resolvedTheme, theme } = useTheme();
+  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
+  const safeContactInfo = contactInfo ?? fallbackContactInfo;
   const contactCards = sortContactCards(safeContactInfo.cards).filter((card) => card.isActive);
 
   const availabilityIcons = [Sparkles, MessageSquareText, Clock];
@@ -109,10 +74,6 @@ const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
     ...item,
     icon: availabilityIcons[index],
   }));
-
-  if (!mounted) {
-    return <SkeletonContactPage />;
-  }
 
   return (
     <div className='w-full'>
