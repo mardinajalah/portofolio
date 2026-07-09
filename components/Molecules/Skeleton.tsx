@@ -142,6 +142,40 @@ type SkeletonAdminDataTableProps = {
   rows?: number;
 };
 
+type SkeletonAdminFormProps = {
+  isDark?: boolean;
+};
+
+export const SkeletonAdminForm = ({ isDark = true }: SkeletonAdminFormProps) => {
+  const blockClassName = isDark ? 'bg-gray-800' : 'bg-gray-300';
+
+  return (
+    <div className={`rounded-xl border p-5 ${isDark ? 'border-gray-800 bg-black/20' : 'border-white/30 bg-white/20'}`}>
+      <div className={`flex flex-col gap-4 border-b pb-5 md:flex-row md:items-start md:justify-between ${isDark ? 'border-gray-800' : 'border-gray-300'}`}>
+        <div className='w-full max-w-xl'>
+          <div className={`h-4 w-36 rounded-full ${blockClassName} animate-pulse`} />
+          <div className={`mt-3 h-7 w-64 rounded-full ${blockClassName} animate-pulse`} />
+          <div className={`mt-3 h-4 w-full rounded-full ${blockClassName} animate-pulse`} />
+        </div>
+        <div className={`h-10 w-28 rounded-lg ${blockClassName} animate-pulse`} />
+      </div>
+
+      <div className='mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2'>
+        {[...Array(6)].map((_, index) => (
+          <div key={index}>
+            <div className={`h-4 w-28 rounded-full ${blockClassName} animate-pulse`} />
+            <div className={`mt-2 ${index > 3 ? 'h-28' : 'h-12'} w-full rounded-lg ${blockClassName} animate-pulse`} />
+          </div>
+        ))}
+      </div>
+
+      <div className='mt-5 flex justify-end'>
+        <div className={`h-12 w-36 rounded-lg ${blockClassName} animate-pulse`} />
+      </div>
+    </div>
+  );
+};
+
 export const SkeletonAdminDataTable = ({ isDark = true, rows = 5 }: SkeletonAdminDataTableProps) => {
   const blockClassName = isDark ? 'bg-gray-800' : 'bg-gray-300';
   const softBlockClassName = isDark ? 'bg-gray-900/70' : 'bg-white/40';

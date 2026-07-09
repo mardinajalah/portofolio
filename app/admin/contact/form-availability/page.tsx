@@ -1,9 +1,16 @@
-import React from 'react'
+import { FormAvailability } from '@/components/admin/FormAvailability';
 
-const FormAvailability = () => {
-  return (
-    <div>FormAvailability</div>
-  )
-}
+type FormAvailabilityPageProps = {
+  searchParams: Promise<{
+    id?: string | string[];
+  }>;
+};
 
-export default FormAvailability
+const FormAvailabilityPage = async ({ searchParams }: FormAvailabilityPageProps) => {
+  const params = await searchParams;
+  const editingItemId = Array.isArray(params.id) ? params.id[0] : params.id;
+
+  return <FormAvailability editingItemId={editingItemId ?? null} />;
+};
+
+export default FormAvailabilityPage;

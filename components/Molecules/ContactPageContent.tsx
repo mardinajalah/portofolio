@@ -1,7 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Clock, Github, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
+import {
+  BriefcaseBusiness,
+  CalendarDays,
+  Clock,
+  Github,
+  MapPin,
+  MessageSquareText,
+  Sparkles,
+  type LucideIcon,
+} from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
@@ -11,6 +20,13 @@ import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
 import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
 import {
+  AvailabilityIcon,
+  ContactAvailability,
+  fallbackContactAvailability,
+  getLocalizedAvailabilityText,
+  sortAvailabilityItems,
+} from '@/lib/contact-availability-utils';
+import {
   ContactCard,
   ContactInfo,
   fallbackContactInfo,
@@ -18,13 +34,17 @@ import {
   sortContactCards,
 } from '@/lib/contact-info-utils';
 
-interface AvailabilityCopy {
-  title: string;
-  description: string;
-}
-
 type ContactPageContentProps = {
+  contactAvailability: ContactAvailability;
   contactInfo: ContactInfo;
+};
+
+const availabilityIcons: Record<AvailabilityIcon, LucideIcon> = {
+  briefcase: BriefcaseBusiness,
+  calendar: CalendarDays,
+  clock: Clock,
+  message: MessageSquareText,
+  sparkles: Sparkles,
 };
 
 const getContactCardIcon = (card: ContactCard) => {
@@ -51,24 +71,20 @@ const getContactCardIcon = (card: ContactCard) => {
   return <MapPin size={20} />;
 };
 
-const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
+const ContactPageContent = ({ contactAvailability, contactInfo }: ContactPageContentProps) => {
   const t = useTranslations('ContactPage');
   const locale = useLocale();
   const { resolvedTheme, theme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
   const isDark = isMounted ? (resolvedTheme ?? theme ?? 'dark') === 'dark' : true;
   const safeContactInfo = contactInfo ?? fallbackContactInfo;
+  const safeContactAvailability = contactAvailability ?? fallbackContactAvailability;
   const contactCards = sortContactCards(safeContactInfo.cards).filter((card) => card.isActive);
+  const availabilityItems = sortAvailabilityItems(safeContactAvailability.items).filter((item) => item.isActive);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  const availabilityIcons = [Sparkles, MessageSquareText, Clock];
-  const availabilityItems = (t.raw('availabilityItems') as AvailabilityCopy[]).map((item, index) => ({
-    ...item,
-    icon: availabilityIcons[index],
-  }));
 
   if (!isMounted) {
     return <SkeletonContactPage />;
@@ -111,30 +127,35 @@ const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
         </div>
       </section>
 
-      <section className='mt-10 border-t-2 border-gray-300 dark:border-gray-700/40 pt-8'>
-        <div className='flex items-center gap-2 justify-start'>
-          <Sparkles size={25} />
-          <h1 className='text-2xl font-bold capitalize'>{t('availability')}</h1>
-        </div>
+      {availabilityItems.length > 0 && (
+        <section className='mt-10 border-t-2 border-gray-300 pt-8 dark:border-gray-700/40'>
+          <div className='flex items-center justify-start gap-2'>
+            <Sparkles size={25} />
+            <h1 className='text-2xl font-bold capitalize'>{t('availability')}</h1>
+          </div>
 
-        <div className='mt-5 grid grid-cols-1 md:grid-cols-3 gap-4'>
-          {availabilityItems.map((item) => (
-            <div
-              key={item.title}
-              className={`
-                p-5 rounded-xl backdrop-blur-xl border shadow-md
-                ${isDark ? 'bg-gray-800/20 border-gray-700/40' : 'bg-white/20 border-white/30'}
-              `}
-            >
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDark ? 'bg-blue-400/10 text-blue-400' : 'bg-blue-500/10 text-blue-500'}`}>
-                <item.icon size={20} />
-              </div>
-              <h2 className='mt-4 font-semibold'>{item.title}</h2>
-              <p className='mt-2 text-sm leading-6'>{item.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className='mt-5 grid grid-cols-1 gap-4 md:grid-cols-3'>
+            {availabilityItems.map((item) => {
+              const AvailabilityItemIcon = availabilityIcons[item.icon];
+
+              return (
+                <div
+                  key={item.id}
+                  className={`rounded-xl border p-5 shadow-md backdrop-blur-xl ${
+                    isDark ? 'border-gray-700/40 bg-gray-800/20' : 'border-white/30 bg-white/20'
+                  }`}
+                >
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${isDark ? 'bg-blue-400/10 text-blue-400' : 'bg-blue-500/10 text-blue-500'}`}>
+                    <AvailabilityItemIcon size={20} />
+                  </div>
+                  <h2 className='mt-4 font-semibold'>{getLocalizedAvailabilityText(item.title, locale)}</h2>
+                  <p className='mt-2 text-sm leading-6'>{getLocalizedAvailabilityText(item.description, locale)}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 };
