@@ -136,3 +136,52 @@ export const SkeletonCertificatePage = () => {
     </div>
   );
 };
+
+type SkeletonAdminDataTableProps = {
+  isDark?: boolean;
+  rows?: number;
+};
+
+export const SkeletonAdminDataTable = ({ isDark = true, rows = 5 }: SkeletonAdminDataTableProps) => {
+  const blockClassName = isDark ? 'bg-gray-800' : 'bg-gray-300';
+  const softBlockClassName = isDark ? 'bg-gray-900/70' : 'bg-white/40';
+
+  return (
+    <div className={`rounded-2xl border p-5 shadow-lg md:p-7 ${isDark ? 'border-gray-800 bg-gray-900/40' : 'border-white/30 bg-white/20'}`}>
+      <div className='flex items-center justify-between gap-3 px-4 py-3'>
+        <div>
+          <div className={`h-7 w-56 rounded-full ${blockClassName} animate-pulse`} />
+          <div className={`mt-3 h-4 w-32 rounded-full ${blockClassName} animate-pulse`} />
+        </div>
+        <div className={`h-12 w-28 rounded-lg ${blockClassName} animate-pulse`} />
+      </div>
+
+      <div className='mt-4 overflow-hidden rounded-xl'>
+        <div className={`grid grid-cols-7 gap-4 px-4 py-4 ${softBlockClassName}`}>
+          {[...Array(7)].map((_, index) => (
+            <div
+              key={index}
+              className={`h-4 rounded-full ${blockClassName} animate-pulse`}
+            />
+          ))}
+        </div>
+
+        <div className={isDark ? 'divide-y divide-gray-800/80' : 'divide-y divide-gray-300/80'}>
+          {[...Array(rows)].map((_, rowIndex) => (
+            <div
+              key={rowIndex}
+              className={`grid grid-cols-7 gap-4 px-4 py-5 ${rowIndex % 2 === 0 ? (isDark ? 'bg-black/10' : 'bg-white/20') : ''}`}
+            >
+              {[...Array(7)].map((_, columnIndex) => (
+                <div
+                  key={columnIndex}
+                  className={`h-5 rounded-full ${blockClassName} animate-pulse ${columnIndex === 0 ? 'w-10' : 'w-full'}`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

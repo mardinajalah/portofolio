@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
 import { AdminDataTable } from '@/components/admin/AdminDataTable';
+import { SkeletonAdminDataTable } from '@/components/Molecules/Skeleton';
 import { getContactInfo, saveContactInfo } from '@/lib/contact-info';
 import { ContactCard, ContactInfo, contactIconOptions, fallbackContactInfo, sortContactCards } from '@/lib/contact-info-utils';
 
@@ -225,17 +226,7 @@ const AdminContactPage = () => {
   );
 
   if (isLoading) {
-    return (
-      <section className={`rounded-2xl border p-6 shadow-lg ${isDark ? 'border-gray-800 bg-gray-900/40' : 'border-white/30 bg-white/20'}`}>
-        <div className={`flex items-center gap-3 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-          <Loader2
-            className='animate-spin text-blue-300'
-            size={20}
-          />
-          <span className='text-sm'>Memuat tabel kontak...</span>
-        </div>
-      </section>
-    );
+    return <SkeletonAdminDataTable isDark={isDark} />;
   }
 
   return (

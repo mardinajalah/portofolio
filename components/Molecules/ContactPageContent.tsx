@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Clock, Github, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
@@ -8,6 +9,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import ContactForm from '@/components/Molecules/ContactForm';
 import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
+import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
 import {
   ContactCard,
   ContactInfo,
@@ -53,15 +55,24 @@ const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
   const t = useTranslations('ContactPage');
   const locale = useLocale();
   const { resolvedTheme, theme } = useTheme();
-  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
+  const [isMounted, setIsMounted] = useState(false);
+  const isDark = isMounted ? (resolvedTheme ?? theme ?? 'dark') === 'dark' : true;
   const safeContactInfo = contactInfo ?? fallbackContactInfo;
   const contactCards = sortContactCards(safeContactInfo.cards).filter((card) => card.isActive);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const availabilityIcons = [Sparkles, MessageSquareText, Clock];
   const availabilityItems = (t.raw('availabilityItems') as AvailabilityCopy[]).map((item, index) => ({
     ...item,
     icon: availabilityIcons[index],
   }));
+
+  if (!isMounted) {
+    return <SkeletonContactPage />;
+  }
 
   return (
     <div className='w-full'>
