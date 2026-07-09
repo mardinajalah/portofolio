@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Clock, Github, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
+import { Clock, Github, Link, Mail, MapPin, MessageSquareText, Phone, Sparkles } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
@@ -11,10 +11,11 @@ import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
 import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
 import {
+  ContactCard,
   ContactInfo,
   fallbackContactInfo,
-  formatContactLinkValue,
-  getSocialContactHref,
+  getLocalizedContactText,
+  sortContactCards,
 } from '@/lib/contact-info-utils';
 
 interface AvailabilityCopy {
@@ -24,6 +25,38 @@ interface AvailabilityCopy {
 
 type ContactPageContentProps = {
   contactInfo: ContactInfo;
+};
+
+const getContactCardIcon = (card: ContactCard) => {
+  if (card.icon === 'facebook') {
+    return <FontAwesomeIcon icon={faFacebook} className='text-xl' />;
+  }
+
+  if (card.icon === 'whatsapp') {
+    return <FontAwesomeIcon icon={faWhatsapp} className='text-xl' />;
+  }
+
+  if (card.icon === 'telegram') {
+    return <FontAwesomeIcon icon={faTelegram} className='text-xl' />;
+  }
+
+  if (card.icon === 'github') {
+    return <Github size={20} />;
+  }
+
+  if (card.icon === 'location') {
+    return <MapPin size={20} />;
+  }
+
+  if (card.icon === 'mail') {
+    return <Mail size={20} />;
+  }
+
+  if (card.icon === 'phone') {
+    return <Phone size={20} />;
+  }
+
+  return <Link size={20} />;
 };
 
 const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
@@ -65,38 +98,7 @@ const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
   }, []);
 
   const safeContactInfo = currentContactInfo ?? fallbackContactInfo;
-
-  const contactItems = [
-    {
-      label: t('contactItems.facebook'),
-      value: formatContactLinkValue(safeContactInfo.facebookUrl, 'Facebook'),
-      icon: <FontAwesomeIcon icon={faFacebook} className='text-xl' />,
-      href: getSocialContactHref('facebook', safeContactInfo.facebookUrl),
-    },
-    {
-      label: t('contactItems.whatsapp'),
-      value: formatContactLinkValue(safeContactInfo.whatsapp, 'WhatsApp'),
-      icon: <FontAwesomeIcon icon={faWhatsapp} className='text-xl' />,
-      href: getSocialContactHref('whatsapp', safeContactInfo.whatsapp),
-    },
-    {
-      label: t('contactItems.telegram'),
-      value: formatContactLinkValue(safeContactInfo.telegram, 'Telegram'),
-      icon: <FontAwesomeIcon icon={faTelegram} className='text-xl' />,
-      href: getSocialContactHref('telegram', safeContactInfo.telegram),
-    },
-    {
-      label: t('contactItems.github'),
-      value: formatContactLinkValue(safeContactInfo.githubUrl, 'GitHub'),
-      icon: <Github size={20} />,
-      href: getSocialContactHref('github', safeContactInfo.githubUrl),
-    },
-    {
-      label: t('contactItems.location'),
-      value: locale === 'id' ? safeContactInfo.location.id : safeContactInfo.location.en,
-      icon: <MapPin size={20} />,
-    },
-  ];
+  const contactCards = sortContactCards(safeContactInfo.cards).filter((card) => card.isActive);
 
   const availabilityIcons = [Sparkles, MessageSquareText, Clock];
   const availabilityItems = (t.raw('availabilityItems') as AvailabilityCopy[]).map((item, index) => ({
@@ -120,14 +122,14 @@ const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {
           </div>
 
           <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4'>
-            {contactItems.map((item) => (
+            {contactCards.map((card) => (
               <ContactInfoCard
-                key={item.label}
-                href={item.href}
-                icon={item.icon}
+                key={card.id}
+                href={card.href || undefined}
+                icon={getContactCardIcon(card)}
                 isDark={isDark}
-                label={item.label}
-                value={item.value}
+                label={getLocalizedContactText(card.label, locale)}
+                value={getLocalizedContactText(card.value, locale)}
               />
             ))}
           </div>

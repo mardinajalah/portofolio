@@ -1,0 +1,30 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email == 'mardin@gmail.com';
+    }
+
+    function isValidContactInfo() {
+      return request.resource.data.keys().hasOnly([
+        'cards',
+        'updatedAt'
+      ])
+      && request.resource.data.cards is list
+      && request.resource.data.cards.size() <= 30
+      && request.resource.data.updatedAt is string;
+    }
+
+    match /siteContent/contactInfo {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidContactInfo();
+      allow delete: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
