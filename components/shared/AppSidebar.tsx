@@ -11,24 +11,28 @@ type AppSidebarProps = {
   activePathname: string;
   controls?: ReactNode;
   footer?: ReactNode;
+  header?: ReactNode;
   isOpenSidebar: boolean;
   navigationItems: SidebarNavigationItem[];
   profileImageSrc?: string;
   profileTitle?: string;
   renderLink: (item: SidebarNavigationItem, className: string, children: ReactNode) => ReactNode;
   setIsOpenSidebar: Dispatch<SetStateAction<boolean>>;
+  showProfile?: boolean;
 };
 
 export const AppSidebar = ({
   activePathname,
   controls,
   footer,
+  header,
   isOpenSidebar,
   navigationItems,
   profileImageSrc = '/profile/profile.png',
   profileTitle = 'Mardin',
   renderLink,
   setIsOpenSidebar,
+  showProfile = true,
 }: AppSidebarProps) => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -87,25 +91,30 @@ export const AppSidebar = ({
           ${isOpenSidebar ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
-        <div className='mt-2 flex h-25 w-25 justify-center overflow-hidden rounded-full'>
-          <Image
-            alt='profile'
-            src={profileImageSrc}
-            width={200}
-            height={200}
-            priority
-          />
-        </div>
+        {showProfile && (
+          <>
+            <div className='mt-2 flex h-25 w-25 justify-center overflow-hidden rounded-full'>
+              <Image
+                alt='profile'
+                src={profileImageSrc}
+                width={200}
+                height={200}
+                priority
+              />
+            </div>
 
-        <div className='flex items-center justify-center gap-1'>
-          <h1 className='text-center text-2xl font-bold'>{profileTitle}</h1>
-          <Image
-            alt='centang biru'
-            src='/icon/bluecheck.png'
-            height={20}
-            width={20}
-          />
-        </div>
+            <div className='flex items-center justify-center gap-1'>
+              <h1 className='text-center text-2xl font-bold'>{profileTitle}</h1>
+              <Image
+                alt='centang biru'
+                src='/icon/bluecheck.png'
+                height={20}
+                width={20}
+              />
+            </div>
+          </>
+        )}
+        {!showProfile && header}
 
         {controls}
 
