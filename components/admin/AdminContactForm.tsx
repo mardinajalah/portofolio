@@ -5,11 +5,9 @@ import {
   CheckCircle2,
   Loader2,
   MessageSquareText,
-  Pencil,
   Plus,
   Save,
   ShieldAlert,
-  Trash2,
   X,
 } from 'lucide-react';
 import {
@@ -21,6 +19,7 @@ import {
   sortContactCards,
 } from '@/lib/contact-info-utils';
 import { getContactInfo, saveContactInfo } from '@/lib/contact-info';
+import { AdminContactDataTable } from './AdminContactDataTable';
 
 const normalizeTableOrder = (cards: ContactCard[]) => {
   return sortContactCards(cards).map((card, index) => ({
@@ -181,82 +180,13 @@ export const AdminContactForm = () => {
         </button>
       </div>
 
-      <div className='mt-6 overflow-x-auto rounded-xl border border-gray-800'>
-        <table className='w-full min-w-245 border-collapse bg-black/20 text-left text-sm'>
-          <thead className='bg-gray-950/70 text-xs uppercase tracking-[0.12em] text-gray-500'>
-            <tr>
-              <th className='px-4 py-4 font-semibold'>Urutan</th>
-              <th className='px-4 py-4 font-semibold'>Status</th>
-              <th className='px-4 py-4 font-semibold'>Icon</th>
-              <th className='px-4 py-4 font-semibold'>Label</th>
-              <th className='px-4 py-4 font-semibold'>Value</th>
-              <th className='px-4 py-4 font-semibold'>Link URL</th>
-              <th className='px-4 py-4 font-semibold'>Aksi</th>
-            </tr>
-          </thead>
-          <tbody className='divide-y divide-gray-800'>
-            {formData.cards.map((card) => (
-              <tr
-                key={card.id}
-                className='align-top transition hover:bg-gray-900/35'
-              >
-                <td className='px-4 py-4 font-semibold text-gray-200'>{card.order}</td>
-                <td className='px-4 py-4'>
-                  <span
-                    className={`inline-flex rounded-lg border px-3 py-1.5 text-sm font-semibold ${
-                      card.isActive
-                        ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200'
-                        : 'border-gray-700 bg-gray-900 text-gray-400'
-                    }`}
-                  >
-                    {card.isActive ? 'Aktif' : 'Nonaktif'}
-                  </span>
-                </td>
-                <td className='px-4 py-4 text-gray-200'>{contactIconOptions.find((option) => option.value === card.icon)?.label ?? card.icon}</td>
-                <td className='px-4 py-4'>
-                  <p className='font-semibold text-gray-100'>{card.label.id}</p>
-                  <p className='mt-1 text-xs text-gray-500'>{card.label.en}</p>
-                </td>
-                <td className='px-4 py-4'>
-                  <p className='max-w-64 truncate font-semibold text-gray-100'>{card.value.id}</p>
-                  <p className='mt-1 max-w-64 truncate text-xs text-gray-500'>{card.value.en}</p>
-                </td>
-                <td className='px-4 py-4'>
-                  <p className='max-w-72 truncate text-gray-300'>{card.href || '-'}</p>
-                </td>
-                <td className='px-4 py-4'>
-                  <div className='flex flex-wrap gap-2'>
-                    <button
-                      type='button'
-                      onClick={() => editCard(card)}
-                      className='inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-blue-400/30 bg-blue-500/10 px-3 font-semibold text-blue-200 transition hover:bg-blue-500/20'
-                    >
-                      <Pencil size={16} />
-                      Edit
-                    </button>
-                    <button
-                      type='button'
-                      onClick={() => removeCard(card.id)}
-                      disabled={isSaving || deletingCardId === card.id}
-                      className='inline-flex h-10 items-center justify-center gap-2 rounded-lg border border-red-400/30 bg-red-500/10 px-3 font-semibold text-red-200 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-60'
-                    >
-                      {deletingCardId === card.id ? (
-                        <Loader2
-                          className='animate-spin'
-                          size={16}
-                        />
-                      ) : (
-                        <Trash2 size={16} />
-                      )}
-                      Hapus
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <AdminContactDataTable
+        cards={formData.cards}
+        deletingCardId={deletingCardId}
+        isSaving={isSaving}
+        onDelete={removeCard}
+        onEdit={editCard}
+      />
 
       <div
         ref={formPanelRef}
