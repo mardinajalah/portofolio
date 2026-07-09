@@ -1,7 +1,6 @@
 'use client';
 
 import { Award, ContactRound, Home, LayoutDashboard, PanelsTopLeft, UserRound } from 'lucide-react';
-import { useAdminAuth } from '@/components/admin/AdminAuthGuard';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,7 +38,6 @@ const adminModules = [
 ];
 
 const AdminDashboardPage = () => {
-  const { user } = useAdminAuth();
 
   return (
     <div className='mx-auto max-w-5xl'>
@@ -55,11 +53,6 @@ const AdminDashboardPage = () => {
               Area ini menjadi fondasi untuk mengelola konten portfolio. Tahap pertama sudah menyiapkan proteksi route,
               shell admin, dan navigasi awal untuk modul yang akan dibuat bertahap.
             </p>
-          </div>
-
-          <div className='rounded-xl border border-gray-800 bg-black/20 px-4 py-3'>
-            <p className='text-xs font-semibold uppercase tracking-[0.16em] text-gray-500'>Session</p>
-            <p className='mt-1 max-w-64 truncate text-sm font-semibold text-gray-200'>{user.email}</p>
           </div>
         </div>
       </section>
