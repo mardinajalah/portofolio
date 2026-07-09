@@ -75,7 +75,7 @@ export const AdminShell = ({ children }: AdminShellProps) => {
   return (
     <main className='min-h-screen bg-(--bg) text-(--text)'>
       <div className='mx-auto flex min-h-screen w-full max-w-7xl flex-col lg:flex-row'>
-        <aside className='border-b border-gray-800/80 bg-[#111111]/95 px-4 py-4 lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:border-b-0 lg:border-r lg:px-5 lg:py-6'>
+        <aside className='border-b border-gray-800/80 bg-[#111111]/95 px-4 py-4 lg:sticky lg:top-0 lg:h-screen lg:w-72 lg:min-w-[18rem] lg:max-w-[18rem] lg:shrink-0 lg:border-b-0 lg:border-r lg:px-5 lg:py-6'>
           <div className='flex items-center justify-between gap-4 lg:block'>
             <Link
               href='/admin/dashboard'
@@ -155,7 +155,7 @@ export const AdminShell = ({ children }: AdminShellProps) => {
           </div>
         </aside>
 
-        <section className='flex-1 px-4 py-6 md:px-8 lg:px-10 lg:py-8'>{children}</section>
+        <section className='min-w-0 flex-1 px-4 py-6 md:px-8 lg:px-10 lg:py-8'>{children}</section>
       </div>
     </main>
   );
