@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -10,7 +10,12 @@ import { getFirebaseAuth, isFirebaseConfigured } from '@/lib/firebase/client';
 const AdminIndexPage = () => {
   const router = useRouter();
   const { resolvedTheme, theme } = useTheme();
-  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
+  const [isMounted, setIsMounted] = useState(false);
+  const isDark = isMounted ? (resolvedTheme ?? theme ?? 'dark') === 'dark' : true;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!isFirebaseConfigured) {

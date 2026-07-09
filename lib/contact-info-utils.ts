@@ -1,13 +1,4 @@
-export type ContactCardIcon =
-  | 'facebook'
-  | 'whatsapp'
-  | 'telegram'
-  | 'linkedin'
-  | 'github'
-  | 'location'
-  | 'link'
-  | 'mail'
-  | 'phone';
+export type ContactCardIcon = 'facebook' | 'whatsapp' | 'telegram' | 'linkedin' | 'github' | 'location' | 'link' | 'mail' | 'phone';
 
 export type ContactCard = {
   id: string;
@@ -30,11 +21,11 @@ export type ContactInfo = {
 };
 
 export const contactIconOptions: { value: ContactCardIcon; label: string }[] = [
+  { value: 'linkedin', label: 'LinkedIn' },
   { value: 'facebook', label: 'Facebook' },
   { value: 'whatsapp', label: 'WhatsApp' },
   { value: 'telegram', label: 'Telegram' },
-  { value: 'mail', label: 'Email' },
-  { value: 'linkedin', label: 'LinkedIn' },
+  { value: 'github', label: 'Github' },
   { value: 'location', label: 'Location' },
 ];
 
@@ -110,9 +101,6 @@ export const sortContactCards = (cards: ContactCard[]) => {
   return [...cards].sort((firstCard, secondCard) => firstCard.order - secondCard.order);
 };
 
-export const getLocalizedContactText = (
-  value: ContactCard['label'] | ContactCard['value'],
-  locale: string,
-) => {
+export const getLocalizedContactText = (value: ContactCard['label'] | ContactCard['value'], locale: string) => {
   return locale === 'id' ? value.id || value.en : value.en || value.id;
 };

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { CheckCircle2, ShieldAlert, X } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 type FloatingMessageProps = {
   duration?: number;
@@ -18,6 +19,8 @@ export const FloatingMessage = ({
   title,
   type = 'success',
 }: FloatingMessageProps) => {
+  const { resolvedTheme, theme } = useTheme();
+  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -40,6 +43,20 @@ export const FloatingMessage = ({
 
   const isSuccess = type === 'success';
   const Icon = isSuccess ? CheckCircle2 : ShieldAlert;
+  const messageClassName = isSuccess
+    ? isDark
+      ? 'border-emerald-400/30 bg-emerald-950/90 text-emerald-100 shadow-emerald-950/30'
+      : 'border-emerald-500/30 bg-emerald-50/95 text-emerald-800 shadow-emerald-900/10'
+    : isDark
+      ? 'border-red-400/30 bg-red-950/90 text-red-100 shadow-red-950/30'
+      : 'border-red-500/30 bg-red-50/95 text-red-800 shadow-red-900/10';
+  const progressClassName = isSuccess
+    ? isDark
+      ? 'bg-emerald-300'
+      : 'bg-emerald-500'
+    : isDark
+      ? 'bg-red-300'
+      : 'bg-red-500';
 
   return (
     <div
@@ -50,11 +67,7 @@ export const FloatingMessage = ({
       }`}
     >
       <div
-        className={`overflow-hidden rounded-xl border shadow-2xl backdrop-blur-xl ${
-          isSuccess
-            ? 'border-emerald-400/30 bg-emerald-950/90 text-emerald-100 shadow-emerald-950/30'
-            : 'border-red-400/30 bg-red-950/90 text-red-100 shadow-red-950/30'
-        }`}
+        className={`overflow-hidden rounded-xl border shadow-2xl backdrop-blur-xl ${messageClassName}`}
       >
         <div className='flex items-start gap-3 p-4'>
           <Icon
@@ -69,17 +82,15 @@ export const FloatingMessage = ({
             type='button'
             aria-label='Tutup message'
             onClick={closeMessage}
-            className='rounded-lg p-1 opacity-70 transition hover:bg-white/10 hover:opacity-100'
+            className={`rounded-lg p-1 opacity-70 transition hover:opacity-100 ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'}`}
           >
             <X size={16} />
           </button>
         </div>
 
-        <div className='h-1 bg-white/10'>
+        <div className={isDark ? 'h-1 bg-white/10' : 'h-1 bg-black/10'}>
           <div
-            className={`h-full origin-left ${
-              isSuccess ? 'bg-emerald-300' : 'bg-red-300'
-            }`}
+            className={`h-full origin-left ${progressClassName}`}
             style={{
               transform: isVisible ? 'scaleX(0)' : 'scaleX(1)',
               transition: isVisible ? `transform ${duration}ms linear` : 'none',

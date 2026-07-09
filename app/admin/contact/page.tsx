@@ -129,7 +129,7 @@ const AdminContactPage = () => {
         id: 'label',
         accessorFn: (card) => `${card.label.id} ${card.label.en}`,
         header: 'Label',
-        size: 210,
+        size: 140,
         cell: ({ row }) => (
           <div className='min-w-0'>
             <p

@@ -1,6 +1,6 @@
 'use client';
 
-import { Clock, Github, Link, Mail, MapPin, MessageSquareText, Phone, Sparkles } from 'lucide-react';
+import { Clock, Github, MapPin, MessageSquareText, Sparkles } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
@@ -46,19 +46,7 @@ const getContactCardIcon = (card: ContactCard) => {
     return <Github size={20} />;
   }
 
-  if (card.icon === 'location') {
-    return <MapPin size={20} />;
-  }
-
-  if (card.icon === 'mail') {
-    return <Mail size={20} />;
-  }
-
-  if (card.icon === 'phone') {
-    return <Phone size={20} />;
-  }
-
-  return <Link size={20} />;
+  return <MapPin size={20} />;
 };
 
 const ContactPageContent = ({ contactInfo }: ContactPageContentProps) => {

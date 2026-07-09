@@ -27,9 +27,19 @@ type AdminAuthGuardProps = {
   children: ReactNode;
 };
 
-const AdminLoadingState = () => {
+const useStableIsDark = () => {
   const { resolvedTheme, theme } = useTheme();
-  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  return isMounted ? (resolvedTheme ?? theme ?? 'dark') === 'dark' : true;
+};
+
+const AdminLoadingState = () => {
+  const isDark = useStableIsDark();
 
   return (
     <main className='min-h-screen bg-(--bg) text-(--text) flex items-center justify-center p-4'>
@@ -53,8 +63,7 @@ const AdminLoadingState = () => {
 };
 
 const AdminConfigMissingState = () => {
-  const { resolvedTheme, theme } = useTheme();
-  const isDark = (resolvedTheme ?? theme ?? 'dark') === 'dark';
+  const isDark = useStableIsDark();
 
   return (
     <main className='min-h-screen bg-(--bg) text-(--text) flex items-center justify-center p-4'>
