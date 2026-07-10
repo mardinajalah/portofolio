@@ -66,13 +66,37 @@ body {
   background-color: var(--page-scrollbar-thumb-active);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  #nprogress .bar {
-    transition: none !important;
-  }
+#nprogress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+  will-change: opacity;
+}
 
-  #nprogress .peg {
-    display: none;
+html #nprogress .bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition-property: transform !important;
+  transition-duration: 160ms !important;
+  transition-timing-function: linear !important;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nprogress,
+  html #nprogress .bar {
+    transition: none !important;
   }
 
   [data-auto-hide-scrollbar]::-webkit-scrollbar-thumb {

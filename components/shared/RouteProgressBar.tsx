@@ -7,14 +7,14 @@ export const RouteProgressBar = () => {
     <NextTopLoader
       color='var(--navigation-progress)'
       initialPosition={0.08}
-      crawlSpeed={200}
+      crawlSpeed={220}
       height={3}
       crawl
       showSpinner={false}
-      easing='ease'
-      speed={200}
+      easing='linear'
+      speed={220}
       shadow={false}
-      template='<div class="bar" role="bar" aria-hidden="true"><div class="peg"></div></div>'
+      template='<div class="bar" role="bar" aria-hidden="true"></div>'
       zIndex={2000}
       showAtBottom={false}
       showForHashAnchor={false}
