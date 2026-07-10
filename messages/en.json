@@ -180,7 +180,14 @@
       "message": "Message",
       "messagePlaceholder": "Tell me about your idea",
       "send": "Send Message",
-      "success": "Message preview submitted. Backend integration can be added next."
+      "sending": "Sending...",
+      "successTitle": "Message sent",
+      "success": "Thank you. Your message has arrived and I will read it as soon as possible.",
+      "errorTitle": "Message not sent",
+      "error": "Your message could not be sent. Check your connection and try again.",
+      "cooldown": "Please wait {seconds} seconds before sending another message.",
+      "validation": "Check every field again. Make sure the content is not only spaces and meets the required length.",
+      "closeMessage": "Close message"
     }
   },
   "Metadata": {

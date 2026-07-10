@@ -180,7 +180,14 @@
       "message": "Pesan",
       "messagePlaceholder": "Ceritakan ide Anda",
       "send": "Kirim Pesan",
-      "success": "Pratinjau pesan terkirim. Integrasi backend bisa ditambahkan berikutnya."
+      "sending": "Mengirim...",
+      "successTitle": "Pesan terkirim",
+      "success": "Terima kasih. Pesan Anda sudah masuk dan akan saya baca secepatnya.",
+      "errorTitle": "Pesan belum terkirim",
+      "error": "Pesan gagal dikirim. Periksa koneksi Anda lalu coba lagi.",
+      "cooldown": "Mohon tunggu {seconds} detik sebelum mengirim pesan berikutnya.",
+      "validation": "Periksa kembali semua isian. Pastikan tidak hanya berisi spasi dan memenuhi panjang yang diminta.",
+      "closeMessage": "Tutup pesan"
     }
   },
   "Metadata": {

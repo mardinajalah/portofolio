@@ -27,6 +27,56 @@ service cloud.firestore {
       && request.resource.data.updatedAt is string;
     }
 
+    function isValidContactMessageCreate() {
+      return request.resource.data.keys().hasOnly([
+        'name',
+        'email',
+        'subject',
+        'message',
+        'locale',
+        'status',
+        'createdAt',
+        'readAt'
+      ])
+      && request.resource.data.name is string
+      && request.resource.data.name.size() >= 2
+      && request.resource.data.name.size() <= 100
+      && request.resource.data.name.matches('.*[^\\s].*')
+      && request.resource.data.email is string
+      && request.resource.data.email.size() <= 254
+      && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+[.][^@\\s]+$')
+      && request.resource.data.subject is string
+      && request.resource.data.subject.size() >= 3
+      && request.resource.data.subject.size() <= 150
+      && request.resource.data.subject.matches('.*[^\\s].*')
+      && request.resource.data.message is string
+      && request.resource.data.message.size() >= 10
+      && request.resource.data.message.size() <= 3000
+      && request.resource.data.message.matches('.*[^\\s].*')
+      && request.resource.data.locale in ['id', 'en']
+      && request.resource.data.status == 'unread'
+      && request.resource.data.createdAt == request.time
+      && request.resource.data.readAt == null;
+    }
+
+    function isValidContactMessageUpdate() {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+        'status',
+        'readAt'
+      ])
+      && request.resource.data.status in ['unread', 'read']
+      && (
+        (
+          request.resource.data.status == 'unread'
+          && request.resource.data.readAt == null
+        )
+        || (
+          request.resource.data.status == 'read'
+          && request.resource.data.readAt == request.time
+        )
+      );
+    }
+
     match /siteContent/contactInfo {
       allow read: if true;
       allow create, update: if isAdmin() && isValidContactInfo();
@@ -37,6 +87,13 @@ service cloud.firestore {
       allow read: if true;
       allow create, update: if isAdmin() && isValidContactAvailability();
       allow delete: if false;
+    }
+
+    match /contactMessages/{messageId} {
+      allow create: if isValidContactMessageCreate();
+      allow read: if isAdmin();
+      allow update: if isAdmin() && isValidContactMessageUpdate();
+      allow delete: if isAdmin();
     }
 
     match /{document=**} {

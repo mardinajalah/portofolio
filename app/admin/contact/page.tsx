@@ -6,6 +6,7 @@ import { Loader2, Pencil, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
+import { AdminContactMessages } from '@/components/admin/AdminContactMessages';
 import { AdminDataTable } from '@/components/admin/AdminDataTable';
 import { SkeletonAdminDataTable } from '@/components/Molecules/Skeleton';
 import { getContactAvailability, saveContactAvailability } from '@/lib/contact-availability';
@@ -442,6 +443,8 @@ const AdminContactPage = () => {
       )}
 
       <div className='space-y-6'>
+        <AdminContactMessages isDark={isDark} />
+
         {isContactLoading ? (
           <SkeletonAdminDataTable isDark={isDark} />
         ) : (

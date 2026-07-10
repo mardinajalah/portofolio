@@ -5,6 +5,7 @@ import { CheckCircle2, ShieldAlert, X } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 type FloatingMessageProps = {
+  closeLabel?: string;
   duration?: number;
   message: string;
   onClose: () => void;
@@ -13,6 +14,7 @@ type FloatingMessageProps = {
 };
 
 export const FloatingMessage = ({
+  closeLabel = 'Tutup pesan',
   duration = 4000,
   message,
   onClose,
@@ -60,8 +62,8 @@ export const FloatingMessage = ({
 
   return (
     <div
-      role='status'
-      aria-live='polite'
+      role={type === 'error' ? 'alert' : 'status'}
+      aria-live={type === 'error' ? 'assertive' : 'polite'}
       className={`fixed right-4 top-6 z-50 w-[calc(100%-2rem)] max-w-sm transition-all duration-300 ease-out md:right-6 ${
         isVisible ? 'translate-x-0 opacity-100' : 'translate-x-[120%] opacity-0'
       }`}
@@ -80,7 +82,7 @@ export const FloatingMessage = ({
           </div>
           <button
             type='button'
-            aria-label='Tutup message'
+            aria-label={closeLabel}
             onClick={closeMessage}
             className={`rounded-lg p-1 opacity-70 transition hover:opacity-100 ${isDark ? 'hover:bg-white/10' : 'hover:bg-black/5'}`}
           >

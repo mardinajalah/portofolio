@@ -11,7 +11,8 @@ type AdminDataTableProps<TData> = {
   emptyMessage?: string;
   isDark: boolean;
   minWidthClassName?: string;
-  onAdd: () => void;
+  onAdd?: () => void;
+  summary?: string;
   title: string;
 };
 
@@ -35,6 +36,7 @@ export const AdminDataTable = <TData,>({
   isDark,
   minWidthClassName = 'min-w-318.5',
   onAdd,
+  summary,
   title,
 }: AdminDataTableProps<TData>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -55,16 +57,18 @@ export const AdminDataTable = <TData,>({
       <div className='flex items-center justify-between gap-3 px-4 py-3'>
         <div>
           <p className={`text-xl font-semibold ${isDark ? 'text-gray-100' : 'text-gray-900'}`}>Daftar {title}</p>
-          <p className={`mt-1 text-sm ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>{data.length} data tersimpan</p>
+          <p className={`mt-1 text-sm ${isDark ? 'text-gray-500' : 'text-gray-600'}`}>{summary ?? `${data.length} data tersimpan`}</p>
         </div>
-        <button
-          type='button'
-          onClick={onAdd}
-          className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border ${isDark ? 'border-blue-400/20 bg-blue-500/10 text-blue-100' : 'border-blue-500/20 bg-blue-500/10 text-blue-700'} px-4 py-3 text-sm font-semibold transition hover:bg-blue-500/20`}
-        >
-          <Plus size={18} />
-          {addButtonLabel}
-        </button>
+        {onAdd && (
+          <button
+            type='button'
+            onClick={onAdd}
+            className={`inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border ${isDark ? 'border-blue-400/20 bg-blue-500/10 text-blue-100' : 'border-blue-500/20 bg-blue-500/10 text-blue-700'} px-4 py-3 text-sm font-semibold transition hover:bg-blue-500/20`}
+          >
+            <Plus size={18} />
+            {addButtonLabel}
+          </button>
+        )}
       </div>
 
       <div className='overflow-x-auto'>
