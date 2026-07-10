@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from 'next/font/google';
+import { ScrollActivityManager } from '@/components/shared/ScrollActivityManager';
 import './globals.css';
 
 const geistSans = Geist({
@@ -20,8 +21,12 @@ export default function RootLayout({
     <html
       lang='en'
       suppressHydrationWarning
+      data-auto-hide-scrollbar='document'
     >
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <ScrollActivityManager />
+        {children}
+      </body>
     </html>
   );
 }
