@@ -3,6 +3,7 @@
 import { Languages, Moon, Sun } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { useTheme } from 'next-themes';
+import { useTopLoader } from 'nextjs-toploader';
 import { usePathname, useRouter } from '@/i18n/navigation';
 
 export const DarkModeToggle = () => {
@@ -46,11 +47,13 @@ export const LanguageToggle = () => {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const topLoader = useTopLoader();
   const { theme } = useTheme();
   const isDark = theme === 'dark';
   const isEnglish = locale === 'en';
 
   const handleChangeLanguage = () => {
+    topLoader.start();
     router.replace(pathname, { locale: isEnglish ? 'id' : 'en' });
   };
 

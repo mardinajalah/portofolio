@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from 'react';
 import { signOut } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 import { getFirebaseAuth } from '@/lib/firebase/client';
 import { SidebarLayout } from '@/components/shared/SidebarLayout';
 import { useAdminAuth } from './AdminAuthGuard';

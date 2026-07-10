@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ColumnDef } from '@tanstack/react-table';
 import { Loader2, Pencil, Trash2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 import { useTheme } from 'next-themes';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
 import { AdminContactMessages } from '@/components/admin/AdminContactMessages';

@@ -2,7 +2,7 @@
 
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { Loader2, ShieldAlert } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 import { useTheme } from 'next-themes';
 import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { getFirebaseAuth, isFirebaseConfigured } from '@/lib/firebase/client';

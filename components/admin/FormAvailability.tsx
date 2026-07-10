@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 import { ArrowLeft, Loader2, Save } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 import { useTheme } from 'next-themes';
 import { SkeletonAdminForm } from '@/components/Molecules/Skeleton';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';

@@ -2,7 +2,8 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 import { ArrowLeft, Loader2, Save } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 import { useTheme } from 'next-themes';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
 import { getContactInfo, saveContactInfo } from '@/lib/contact-info';

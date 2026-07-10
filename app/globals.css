@@ -2,6 +2,7 @@
 
 :root {
   --bg: #181717;
+  --navigation-progress: #60a5fa;
   --page-scrollbar-thumb: rgb(148 163 184 / 60%);
   --page-scrollbar-thumb-active: rgb(96 165 250 / 90%);
   --text: #eaeaea;
@@ -9,6 +10,7 @@
 
 .dark {
   --bg: #181717;
+  --navigation-progress: #60a5fa;
   --page-scrollbar-thumb: rgb(148 163 184 / 60%);
   --page-scrollbar-thumb-active: rgb(96 165 250 / 90%);
   --text: #eaeaea;
@@ -16,6 +18,7 @@
 
 .light {
   --bg: #eaeaea;
+  --navigation-progress: #2563eb;
   --page-scrollbar-thumb: rgb(71 85 105 / 60%);
   --page-scrollbar-thumb-active: rgb(37 99 235 / 90%);
   --text: #181717;
@@ -64,6 +67,14 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #nprogress .bar {
+    transition: none !important;
+  }
+
+  #nprogress .peg {
+    display: none;
+  }
+
   [data-auto-hide-scrollbar]::-webkit-scrollbar-thumb {
     transition: none;
   }
