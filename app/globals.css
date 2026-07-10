@@ -20,6 +20,65 @@ body {
   color: var(--text);
 }
 
+.admin-data-table-scroll {
+  --admin-table-scrollbar-thumb: rgb(71 85 105 / 55%);
+  --admin-table-scrollbar-thumb-active: rgb(37 99 235 / 85%);
+
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--admin-table-scrollbar-thumb) transparent;
+  scrollbar-width: thin;
+}
+
+.admin-data-table-scroll[data-scrollbar-theme="dark"] {
+  --admin-table-scrollbar-thumb: rgb(148 163 184 / 55%);
+  --admin-table-scrollbar-thumb-active: rgb(96 165 250 / 90%);
+}
+
+.admin-data-table-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.admin-data-table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-data-table-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--admin-table-scrollbar-thumb);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  transition: background-color 150ms ease;
+}
+
+.admin-data-table-scroll::-webkit-scrollbar-thumb:active {
+  background-color: var(--admin-table-scrollbar-thumb-active);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .admin-data-table-scroll {
+    scrollbar-color: transparent transparent;
+  }
+
+  .admin-data-table-scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .admin-data-table-scroll:hover,
+  .admin-data-table-scroll:focus-within {
+    scrollbar-color: var(--admin-table-scrollbar-thumb) transparent;
+  }
+
+  .admin-data-table-scroll:hover::-webkit-scrollbar-thumb,
+  .admin-data-table-scroll:focus-within::-webkit-scrollbar-thumb {
+    background-color: var(--admin-table-scrollbar-thumb);
+  }
+
+  .admin-data-table-scroll:hover::-webkit-scrollbar-thumb:active,
+  .admin-data-table-scroll:focus-within::-webkit-scrollbar-thumb:active {
+    background-color: var(--admin-table-scrollbar-thumb-active);
+  }
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);

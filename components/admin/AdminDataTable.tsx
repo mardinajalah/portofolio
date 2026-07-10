@@ -71,7 +71,10 @@ export const AdminDataTable = <TData,>({
         )}
       </div>
 
-      <div className='overflow-x-auto'>
+      <div
+        className='admin-data-table-scroll overflow-x-auto'
+        data-scrollbar-theme={isDark ? 'dark' : 'light'}
+      >
         <table className={`w-full ${minWidthClassName} table-fixed border-collapse text-left text-sm`}>
           <thead className={`text-xs uppercase tracking-[0.12em] ${isDark ? 'bg-gray-950/80 text-gray-500' : 'bg-white/40 text-gray-500'}`}>
             {table.getHeaderGroups().map((headerGroup) => (
