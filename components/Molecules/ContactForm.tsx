@@ -6,12 +6,16 @@ import { useLocale, useTranslations } from 'next-intl';
 import { FloatingMessage } from '@/components/shared/FloatingMessage';
 import {
   ContactMessageInput,
+  contactMessageLimit,
+  contactMessageLimitErrorCode,
   contactMessageLimits,
   isValidContactMessageInput,
 } from '@/lib/contact-message-utils';
 
 interface ContactFormProps {
   isDark: boolean;
+  isSessionReady: boolean;
+  messageCount: number;
 }
 
 type FormFeedback = {
@@ -23,26 +27,34 @@ type FormFeedback = {
 const contactMessageCooldownKey = 'portfolio-contact-message-last-sent';
 const contactMessageCooldownMs = 60_000;
 
-const ContactForm = ({ isDark }: ContactFormProps) => {
+const ContactForm = ({ isDark, isSessionReady, messageCount }: ContactFormProps) => {
   const t = useTranslations('ContactPage.form');
   const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<FormFeedback | null>(null);
+  const hasReachedLimit = messageCount >= contactMessageLimit;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const honeypot = String(formData.get('website') ?? '').trim();
 
     setFeedback(null);
 
-    if (honeypot) {
-      form.reset();
+    if (!isSessionReady) {
       setFeedback({
-        message: t('success'),
-        title: t('successTitle'),
-        type: 'success',
+        message: t('sessionUnavailable'),
+        title: t('errorTitle'),
+        type: 'error',
+      });
+      return;
+    }
+
+    if (hasReachedLimit) {
+      setFeedback({
+        message: t('limitReached'),
+        title: t('errorTitle'),
+        type: 'error',
       });
       return;
     }
@@ -80,7 +92,12 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
 
     try {
       const { submitContactMessage } = await import('@/lib/contact-messages');
-      await submitContactMessage(messageInput);
+      const messageId = await submitContactMessage(messageInput);
+
+      if (!messageId) {
+        throw new Error('CONTACT_MESSAGE_ID_MISSING');
+      }
+
       window.localStorage.setItem(contactMessageCooldownKey, String(Date.now()));
       form.reset();
       setFeedback({
@@ -88,9 +105,15 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
         title: t('successTitle'),
         type: 'success',
       });
-    } catch {
+    } catch (error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('Failed to submit contact message to Firestore.', error);
+      }
+
       setFeedback({
-        message: t('error'),
+        message: error instanceof Error && error.message === contactMessageLimitErrorCode
+          ? t('limitReached')
+          : t('error'),
         title: t('errorTitle'),
         type: 'error',
       });
@@ -125,59 +148,46 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
           ${isDark ? 'bg-gray-800/20 border-gray-700/40' : 'bg-white/20 border-white/30'}
         `}
       >
-        <div
-          className='pointer-events-none absolute -left-250 top-auto h-px w-px overflow-hidden'
-          aria-hidden='true'
-        >
-          <label htmlFor='website'>Website</label>
-          <input
-            id='website'
-            name='website'
-            type='text'
-            tabIndex={-1}
-            autoComplete='off'
-          />
-        </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-        <div>
-          <label
-            htmlFor='name'
-            className='text-sm font-semibold'
-          >
-            {t('name')}
-          </label>
-          <input
-            id='name'
-            name='name'
-            type='text'
-            required
-            minLength={contactMessageLimits.name.min}
-            maxLength={contactMessageLimits.name.max}
-            autoComplete='name'
-            placeholder={t('namePlaceholder')}
-            className={`${inputClassName} mt-2`}
-          />
-        </div>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
+          <div>
+            <label
+              htmlFor='name'
+              className='text-sm font-semibold'
+            >
+              {t('name')}
+            </label>
+            <input
+              id='name'
+              name='name'
+              type='text'
+              required
+              minLength={contactMessageLimits.name.min}
+              maxLength={contactMessageLimits.name.max}
+              autoComplete='name'
+              placeholder={t('namePlaceholder')}
+              className={`${inputClassName} mt-2`}
+            />
+          </div>
 
-        <div>
-          <label
-            htmlFor='email'
-            className='text-sm font-semibold'
-          >
-            {t('email')}
-          </label>
-          <input
-            id='email'
-            name='email'
-            type='email'
-            required
-            maxLength={contactMessageLimits.email.max}
-            autoComplete='email'
-            placeholder={t('emailPlaceholder')}
-            className={`${inputClassName} mt-2`}
-          />
+          <div>
+            <label
+              htmlFor='email'
+              className='text-sm font-semibold'
+            >
+              {t('email')}
+            </label>
+            <input
+              id='email'
+              name='email'
+              type='email'
+              required
+              maxLength={contactMessageLimits.email.max}
+              autoComplete='email'
+              placeholder={t('emailPlaceholder')}
+              className={`${inputClassName} mt-2`}
+            />
+          </div>
         </div>
-      </div>
 
       <div className='mt-4'>
         <label
@@ -220,7 +230,7 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
       <div className='mt-5 flex flex-col sm:flex-row sm:items-center gap-3'>
         <button
           type='submit'
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isSessionReady || hasReachedLimit}
           className='w-full sm:w-auto inline-flex items-center justify-center gap-2 font-semibold px-4 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-all shadow-md cursor-pointer disabled:cursor-not-allowed disabled:opacity-65'
         >
           {isSubmitting ? (
@@ -231,9 +241,17 @@ const ContactForm = ({ isDark }: ContactFormProps) => {
           ) : (
             <Send size={18} />
           )}
-          {isSubmitting ? t('sending') : t('send')}
+          {isSubmitting ? t('sending') : !isSessionReady ? t('preparing') : t('send')}
         </button>
       </div>
+      {hasReachedLimit && (
+        <p
+          role='status'
+          className={`mt-3 text-sm ${isDark ? 'text-amber-300' : 'text-amber-700'}`}
+        >
+          {t('limitReached')}
+        </p>
+      )}
       </form>
     </>
   );

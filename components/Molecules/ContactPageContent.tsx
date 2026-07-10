@@ -6,9 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faTelegram, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { useTheme } from 'next-themes';
 import { useLocale, useTranslations } from 'next-intl';
-import ContactForm from '@/components/Molecules/ContactForm';
 import ContactHero from '@/components/Molecules/ContactHero';
 import ContactInfoCard from '@/components/Molecules/ContactInfoCard';
+import { PublicContactMessages } from '@/components/Molecules/PublicContactMessages';
 import { SkeletonContactPage } from '@/components/Molecules/Skeleton';
 import { SectionEmptyState } from '@/components/shared/SectionEmptyState';
 import { AvailabilityIcon, ContactAvailability, fallbackContactAvailability, getLocalizedAvailabilityText, sortAvailabilityItems } from '@/lib/contact-availability-utils';
@@ -133,7 +133,7 @@ const ContactPageContent = ({ contactAvailability, contactInfo }: ContactPageCon
           </div>
 
           <div className='mt-5'>
-            <ContactForm isDark={isDark} />
+            <PublicContactMessages isDark={isDark} />
           </div>
         </div>
       </section>

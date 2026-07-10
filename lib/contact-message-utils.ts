@@ -13,10 +13,16 @@ export type ContactMessageInput = {
 
 export type ContactMessage = ContactMessageInput & {
   id: string;
+  ownerId: string;
   status: ContactMessageStatus;
   createdAt: Timestamp | null;
+  updatedAt: Timestamp | null;
   readAt: Timestamp | null;
 };
+
+export const contactMessageLimit = 3;
+export const contactMessageLimitErrorCode = 'CONTACT_MESSAGE_LIMIT_REACHED';
+export const contactMessageOwnershipErrorCode = 'CONTACT_MESSAGE_NOT_OWNED';
 
 export const contactMessageLimits = {
   name: { min: 2, max: 100 },
@@ -26,6 +32,17 @@ export const contactMessageLimits = {
 } as const;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export const normalizeContactMessageText = (message: string) => message.trim();
+
+export const isValidContactMessageText = (message: string) => {
+  const normalizedMessage = normalizeContactMessageText(message);
+
+  return (
+    normalizedMessage.length >= contactMessageLimits.message.min
+    && normalizedMessage.length <= contactMessageLimits.message.max
+  );
+};
 
 export const normalizeContactMessageInput = (input: ContactMessageInput): ContactMessageInput => ({
   name: input.name.trim(),
@@ -45,8 +62,7 @@ export const isValidContactMessageInput = (input: ContactMessageInput) => {
     && emailPattern.test(normalizedInput.email)
     && normalizedInput.subject.length >= contactMessageLimits.subject.min
     && normalizedInput.subject.length <= contactMessageLimits.subject.max
-    && normalizedInput.message.length >= contactMessageLimits.message.min
-    && normalizedInput.message.length <= contactMessageLimits.message.max
+    && isValidContactMessageText(normalizedInput.message)
     && (normalizedInput.locale === 'id' || normalizedInput.locale === 'en')
   );
 };

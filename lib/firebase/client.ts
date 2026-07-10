@@ -2,6 +2,9 @@ import { FirebaseApp, getApps, initializeApp } from 'firebase/app';
 import { Auth, getAuth } from 'firebase/auth';
 import { Firestore, getFirestore } from 'firebase/firestore';
 
+const defaultFirebaseAppName = '[DEFAULT]';
+const publicContactFirebaseAppName = 'public-contact';
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -13,12 +16,20 @@ const firebaseConfig = {
 
 export const isFirebaseConfigured = Object.values(firebaseConfig).every(Boolean);
 
-export const getFirebaseApp = (): FirebaseApp => {
+const getExistingFirebaseApp = (name: string) => {
+  return getApps().find((app) => app.name === name);
+};
+
+const assertFirebaseConfigured = () => {
   if (!isFirebaseConfigured) {
     throw new Error('Firebase client environment variables are not configured.');
   }
+};
 
-  return getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+export const getFirebaseApp = (): FirebaseApp => {
+  assertFirebaseConfigured();
+
+  return getExistingFirebaseApp(defaultFirebaseAppName) ?? initializeApp(firebaseConfig);
 };
 
 export const getFirebaseAuth = (): Auth => {
@@ -27,4 +38,19 @@ export const getFirebaseAuth = (): Auth => {
 
 export const getFirebaseDb = (): Firestore => {
   return getFirestore(getFirebaseApp());
+};
+
+export const getPublicContactFirebaseApp = (): FirebaseApp => {
+  assertFirebaseConfigured();
+
+  return getExistingFirebaseApp(publicContactFirebaseAppName)
+    ?? initializeApp(firebaseConfig, publicContactFirebaseAppName);
+};
+
+export const getPublicContactFirebaseAuth = (): Auth => {
+  return getAuth(getPublicContactFirebaseApp());
+};
+
+export const getPublicContactFirebaseDb = (): Firestore => {
+  return getFirestore(getPublicContactFirebaseApp());
 };
