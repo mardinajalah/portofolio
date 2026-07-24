@@ -5,15 +5,11 @@ import { Dispatch, SetStateAction } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import {
-  Award,
-  ContactRound,
-  Home,
   LayoutDashboard,
   LogOut,
-  PanelsTopLeft,
-  UserRound,
 } from 'lucide-react';
 import { DarkModeToggle } from '@/components/Atoms/ButtonToggle';
+import { adminModules } from '@/components/admin/admin-modules';
 import { AppSidebar } from '@/components/shared/AppSidebar';
 import { SidebarNavigationItem } from '@/components/shared/sidebar-types';
 
@@ -31,39 +27,17 @@ const adminNavigation: SidebarNavigationItem[] = [
     name: 'Dashboard',
     icon: <LayoutDashboard size={20} />,
   },
-  {
-    href: '/admin/contact',
-    name: 'Contact',
-    icon: <ContactRound size={20} />,
-  },
-  {
-    href: '/admin/projects',
-    name: 'Projects',
-    icon: <PanelsTopLeft size={20} />,
-    disabled: true,
-    badge: 'Soon',
-  },
-  {
-    href: '/admin/certificates',
-    name: 'Certificates',
-    icon: <Award size={20} />,
-    disabled: true,
-    badge: 'Soon',
-  },
-  {
-    href: '/admin/home',
-    name: 'Home',
-    icon: <Home size={20} />,
-    disabled: true,
-    badge: 'Soon',
-  },
-  {
-    href: '/admin/about',
-    name: 'About',
-    icon: <UserRound size={20} />,
-    disabled: true,
-    badge: 'Soon',
-  },
+  ...adminModules.map((module) => {
+    const ModuleIcon = module.icon;
+
+    return {
+      href: module.href,
+      name: module.title,
+      icon: <ModuleIcon size={20} />,
+      disabled: !module.isAvailable,
+      badge: module.isAvailable ? undefined : 'Soon',
+    };
+  }),
 ];
 
 export const AdminSidebar = ({

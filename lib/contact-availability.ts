@@ -77,19 +77,25 @@ export const normalizeContactAvailability = (value: unknown): ContactAvailabilit
   return fallbackContactAvailability;
 };
 
-export const getContactAvailability = async () => {
+const readContactAvailability = async () => {
   if (!isFirebaseConfigured) {
+    throw new Error('Firebase client environment variables are not configured.');
+  }
+
+  const snapshot = await getDoc(doc(getFirebaseDb(), contactAvailabilityCollection, contactAvailabilityDocument));
+
+  if (!snapshot.exists()) {
     return fallbackContactAvailability;
   }
 
+  return normalizeContactAvailability(snapshot.data());
+};
+
+export const getContactAvailabilityForAdmin = readContactAvailability;
+
+export const getContactAvailability = async () => {
   try {
-    const snapshot = await getDoc(doc(getFirebaseDb(), contactAvailabilityCollection, contactAvailabilityDocument));
-
-    if (!snapshot.exists()) {
-      return fallbackContactAvailability;
-    }
-
-    return normalizeContactAvailability(snapshot.data());
+    return await readContactAvailability();
   } catch {
     return fallbackContactAvailability;
   }

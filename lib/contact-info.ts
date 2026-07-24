@@ -150,19 +150,25 @@ export const normalizeContactInfo = (value: unknown): ContactInfo => {
   return fallbackContactInfo;
 };
 
-export const getContactInfo = async () => {
+const readContactInfo = async () => {
   if (!isFirebaseConfigured) {
+    throw new Error('Firebase client environment variables are not configured.');
+  }
+
+  const snapshot = await getDoc(doc(getFirebaseDb(), contactInfoCollection, contactInfoDocument));
+
+  if (!snapshot.exists()) {
     return fallbackContactInfo;
   }
 
+  return normalizeContactInfo(snapshot.data());
+};
+
+export const getContactInfoForAdmin = readContactInfo;
+
+export const getContactInfo = async () => {
   try {
-    const snapshot = await getDoc(doc(getFirebaseDb(), contactInfoCollection, contactInfoDocument));
-
-    if (!snapshot.exists()) {
-      return fallbackContactInfo;
-    }
-
-    return normalizeContactInfo(snapshot.data());
+    return await readContactInfo();
   } catch {
     return fallbackContactInfo;
   }
